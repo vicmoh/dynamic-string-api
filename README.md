@@ -1,6 +1,6 @@
 # Dynamic String API for C
 
-This is dynamic string API to make string coding much easier in C.
+This is dynamic string API to make string coding much easier in C similar to other modern languages.
 
 ## Installation of API
 
@@ -12,10 +12,10 @@ git clone https://github.com/vicmoh/DynamicStringAPI
 
 ### 2. Run
 
-To compile and run the program type 'make' or 'make valgrind' on terminal program directory.
-Place any of your .c files in 'src' folder and .h in 'include'.
-No need to change the 'makefile'.
-Any files you placed in 'scr', 'include', 'lib' will automatically compile and run the program when 'make' is invoked.
+To compile and run the program type `make` or `make valgrind` on terminal program directory.
+Place any of your `.c` files in `src` folder and `.h` in `include`.
+No need to change the `makefile`.
+Any files you placed in `scr`, `include`, `lib` will automatically compile and run the program when `make` is invoked.
 
 ```bash
 make
@@ -23,27 +23,27 @@ make
 
 ### Directory Structure
 
-Any C file should be placed under the 'src' folder.
+Any C file should be placed under the `src` folder.
 There is already main.c where you can start your project.
 
 ```Bash
 src/main.c
 ```
 
-Any shared or static libraries goes under the 'lib' folder.
+Any shared or static libraries goes under the `lib` folder.
 
 ```Bash
 lib/DynamicString.a
 ```
 
-Your header .h files must be inside the 'include' folder.
+Your header .h files must be inside the `include` folder.
 
 ```Bash
 include/DynamicString.h
 ```
 
 The bin folder is where the executable files goes to,
-by default, 'runProgram' will be your executable when 'make' is invoked.
+by default, `runProgram` will be your executable when `make` is invoked in terminal.
 
 ```Bash
 bin/runProgam
@@ -53,10 +53,10 @@ bin/runProgam
 
 ### String usage
 
-Simply, any tag inside '$( )' is a string.
-Higher level languages uses '+' symbol to assign multiple strings together.
-In comparison, you can assign similar way using ',' to represent different strings inside the string tag.
-Similar to other language, the function 'print( )' is also available using the string tag format which ouput to console.
+Simply, any tag inside `$( )` is a string.
+Higher level languages uses `+` symbol to assign multiple strings together.
+In comparison, you can assign similar way using `,` to represent different strings inside the string tag.
+Similar to other language, the function `print( )` is also available using the string tag format which ouput to console.
 
 To declare a string:
 
@@ -69,23 +69,26 @@ print1: Hello world!
 *********************************/
 ```
 
-You can also assign with other string. As long as it is in the string tag it will return a dynamicly allocated combined string:
+You can also assign string with other string. As long as it is in the string tag it will return a dynamicly allocated combined string:
 
 ```javascript
 String name = $("Vic");
 String sayHello = NULL;
+String toBeAssigned = NULL;
 
 sayHello = $("Hello my name is ", name, ", how is it going?");
-print("print2: ", sayHello);
+toBeAssigned = $(sayHello);
+print("print2: ", toBeAssigned);
 
 /************ output ************
 print2: Hello my name is Vic, how is it going?
 *********************************/
 ```
-### Numbers in string
+### Number in string
 
-Number variables such as int or double in string tag '$( )' must use '\_( )' or it will not compile.
-You can also use constant numbers instead of variables such as '\_(3)':
+Number variables such as int or double in string tag `$( )` must use `_( )` or it will not compile.
+You can also use constant numbers inside instead of variables such as `\_(3)`:
+
 ```javascript
 int age = 8;
 String sayYourCodeYears = $("I have been coding for ", _(age), " years.");
@@ -97,6 +100,7 @@ print3: I have been coding for 8 years.
 ```
 
 Another example:
+
 ```javascript
 int num1 = 2;
 int num2 = 2;
@@ -109,7 +113,7 @@ print4: 2 plus 2 is 4 minus 1 that's 3 quick math.
 ```
 
 Here's another example to print with decimal places on numbers.
-The first argument in '\_dec( )' is the value, and the second is the number of decimal places to show:
+The first argument in `\_dec( )` is the value, and the second is the number of decimal places to show:
 
 ```javascript
 double pi = 3.14159;
@@ -139,7 +143,7 @@ My name is Jeff.
 *********************************/
 ```
 
-The code above is how we manipulate char array in C, problem with this is that the size is constant and it could not hold string longer than '30'. So what if it happens to be a longer string? 
+The code above is how we manipulate char array in C, problem with this is that the size is constant and it could not hold string longer than `30`. So what if it happens to be a longer string? 
 
 Another way to fix the problem is to create a dynamic char array by mallocing and then reallocing to a bigger size when we need to hold more char. So, we have to keep track of the size and it can be difficult to manage.
 
@@ -160,7 +164,7 @@ My name is Jeff.
 *********************************/
 ```
 
-The string tag '$( )' is a simpler form of dynamic chars in C which will adjust accordingly based on the string size, hence when using a string tag, there is no need to know the size of the char array, it will adjust dynamically based on the string size for you. Making dynamic string simpler to code in C similar to other modern languages:
+The string tag `$( )` is a simpler form of dynamic chars in C which will adjust accordingly based on the string size, hence when using a string tag, there is no need to know the size of the char array, it will adjust dynamically based on the string size for you. Making dynamic string simpler to code in C similar to other modern languages:
 
 ```javascript
 // The new way of manipulatinge string in c
@@ -177,7 +181,7 @@ My name is Jeff.
 ```
 
 However, since string tag returns a dynamic allocated string,
-every new string that has been created does not have an auto garbage collector "_(will be added on future updates)".
+every new string that has been created does not have an auto garbage collector *(will be added on future updates)*.
 Hence, you still have to free each dynamic string manually:
 
 ```javascript
@@ -185,6 +189,7 @@ free(test);
 free(name);
 free(multiply);
 free(sayHello);
+free(toBeAssigned);
 free(sayYourCodeYears);
 free(sayPiInDecimal);
 ```
