@@ -138,7 +138,8 @@ strcpy(name, "Jeff");
 strcpy(sayYourName, "My name is ");
 strcat(sayYourName, name);
 strcat(sayYourName, ".");
-printf("%s", sayYourName);
+
+printf("%s\n", sayYourName);
 
 /************ output ************
 My name is Jeff.
@@ -157,7 +158,8 @@ strcpy(name, "Jeff");
 strcpy(sayYourName, "My name is ");
 strcat(sayYourName, name);
 strcat(sayYourName, ".");
-printf("%s", sayYourName);
+
+printf("%s\n", sayYourName);
 
 // And when we need more memory we can just realloc the size
 char* sayYouName = realloc(sayYourName, sizeof(char*)*50)
@@ -172,11 +174,15 @@ The string tag `$( )` is a simpler form of dynamic chars in C which will adjust 
 ```javascript
 // The new way of manipulatinge string in C
 String name = $("Jeff");
-String sayYouName = $("My name is ", name, ".");
+String sayYourName = $("My name is ", name, ".");
+
+print(sayYourName);
 
 // In comparison to JavaScript
 var name = "Jeff";
-var sayYouName = "My name is " + name + ".";
+var sayYourName = "My name is " + name + ".";
+
+console.log(sayYourName);
 
 /************ output ************
 My name is Jeff.
