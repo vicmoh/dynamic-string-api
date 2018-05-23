@@ -165,7 +165,7 @@ My name is Jeff.
 *********************************/
 ```
 
-The string tag `$( )` is a simpler form of dynamic chars in C which will adjust accordingly based on the string size, hence when using a string tag, there is no need to know the size of the char array, it will adjust dynamically based on the string size for you. Hence, making dynamic string simpler to code in C similar to other modern languages!
+The string tag `$( )` is a simpler form of dynamic chars in C which will adjust accordingly based on the string size. As a result, there is no need to keep track of the memory size of the char array, it will adjust dynamically based on the string size for you. Hence, making dynamic string simpler to code in C similar to other modern languages!
 
 ```javascript
 // The new way of manipulatinge string in C
