@@ -40,7 +40,7 @@ lib/DynamicString.a
 Your header .h files must be inside the "include" folder.
 
 ```Bash
-include/index.js
+include/DynamicString.h
 ```
 
 The bin folder is where the executable goes to,
