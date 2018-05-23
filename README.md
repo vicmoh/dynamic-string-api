@@ -1,6 +1,6 @@
 # Dynamic String API for C
 
-This is dynamic string API to make string coding much easier in C similar to other modern languages.
+A dynamic string API to make string coding much easier in C similar to other modern languages.
 
 ## Installation of API
 
