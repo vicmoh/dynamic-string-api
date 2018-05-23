@@ -172,13 +172,13 @@ My name is Jeff.
 The string tag `$( )` is a simpler form of dynamic chars in C which will adjust accordingly based on the string size. As a result, there is no need to keep track of the memory size of the char array, it will adjust dynamically based on the string size for you. Hence, making dynamic string simpler to code in C similar to other modern languages!
 
 ```javascript
-// The new way of manipulatinge string in C
+// The new way of manipulating string in C
 String name = $("Jeff");
 String sayYourName = $("My name is ", name, ".");
 
 print(sayYourName);
 
-// In comparison to JavaScript
+// In comparison to modern language like JavaScript
 var name = "Jeff";
 var sayYourName = "My name is " + name + ".";
 
