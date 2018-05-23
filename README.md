@@ -84,8 +84,8 @@ print2: Hello my name is Vic, how is it going?
 ```
 ### Numbers in string
 
-Number variables such as int or double in string "$( )" must use "_(age)" or it will not compile.
-You can also use constant numbers instead of variables such as "_(3)":
+Number variables such as int or double in string "$( )" must use "\_(age)" or it will not compile.
+You can also use constant numbers instead of variables such as "\_(3)":
 ```javascript
 int age = 8;
 String sayYourCodeYears = $("I have been coding for ", _(age), " years.");
@@ -109,7 +109,7 @@ print4: 2 multiply by 4 is 8
 ```
 
 Here's another example to print with decimals on numbers.
-The first argument is the value _dec(), and the second is the number of decimal to show:
+The first argument in "\_dec( )" is the value, and the second is the number of decimal to show:
 ```javascript
 double pi = 3.14159;
 String sayPiInDecimal = $("What is the Pi number? ", _dec(pi, 2), " is the number, duh!");
