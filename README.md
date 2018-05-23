@@ -55,23 +55,32 @@ bin/runProgam
 
 ### String usage
 
-Simply, any tag inside "$( )" is a string, 
-you can assign multiple string with comma "," inside to represent different string.
-Print() also works the same way as many other modern language which outputs to console.
+Simply, any tag inside "$( )" is a string.
+Higher level languages uses "+" symbol to assigned multiple strings.
+In comparison you can assign similar way using "," to represent different strings.
+The function "print( )" is also available which uses the same format to output to the console.
 To declare a string simply:
 
 ```javascript
 String test = $("Hello world!");
 print("print1: ", test);
 
-String name = $("Vic");
-String sayHello = NULL;
+/************ output ************
+print1: Hello world!
+*********************************/
 ```
 
 You can assign with other string and print using the same format:
 ```javascript
+String name = $("Vic");
+String sayHello = NULL;
+
 sayHello = $("Hello my name is ", name, ", how is it going?");
 print("print2: ", sayHello);
+
+/************ output ************
+print2: Hello my name is Vic, how is it going?
+*********************************/
 ```
 ### Numbers in string
 
@@ -81,14 +90,22 @@ number variable in string "$( )" must use "_(age)" or it will not compile:
 int age = 8;
 String sayYourCodeYears = $("I have been coding for ", _(age), " years.");
 print("print", _(3) , ": ", sayYourCodeYears); 
+
+/************ output ************
+print3: I have been coding for 8 years.
+*********************************/
 ```
 
 Another example:
 ```javascript
 int num1 = 2;
 int num2 = 4;
-String multiply = $(_(num1), " mulitply by ", _(num2), " is ", _(num1*num2));
+String multiply = $(_(num1), " multiply by ", _(num2), " is ", _(num1*num2));
 print("print4: ", multiply);
+
+/************ output ************
+print4: 2 multiply by 4 is 8
+*********************************/
 ```
 
 Here's another example to print with decimals with numbers:
@@ -96,6 +113,10 @@ Here's another example to print with decimals with numbers:
 double pi = 3.14159;
 String sayPiInDecimal = $("What is the Pi number? ", _dec(pi, 2), " is the number, duh!");
 print("print", _dec(5, 0), ": ", sayPiInDecimal);
+
+/************ output ************
+print5: What is the Pi number? 3.14 is the number, duh!
+*********************************/
 ```
 
 Dynamic string return dynamic allocated memory,
@@ -119,7 +140,7 @@ for(int x=0; x<token->length; x++){
     print("token[", _(x), "]: ", token->list[x]);
 }//end for
 
-/* the output will be:
+/************ output ************
 token[0]: This
 token[1]: string
 token[2]: is
@@ -130,7 +151,8 @@ token[6]: split
 token[7]: into
 token[8]: array
 token[9]: of
-token[10]: string*/
+token[10]: string
+*********************************/
 
 free(toBeSplit);
 Token_freeToken(token);
