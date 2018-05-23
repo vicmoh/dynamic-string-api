@@ -70,6 +70,7 @@ print1: Hello world!
 ```
 
 You can also assign with other string. As long as it is in the string tag it will return a dynamicly allocated combined string:
+
 ```javascript
 String name = $("Vic");
 String sayHello = NULL;
@@ -109,6 +110,7 @@ print4: 2 plus 2 is 4 minus 1 that's 3 quick math.
 
 Here's another example to print with decimal places on numbers.
 The first argument in '\_dec( )' is the value, and the second is the number of decimal places to show:
+
 ```javascript
 double pi = 3.14159;
 String sayPiInDecimal = $("What is the Pi number? ", _dec(pi, 2), " is the number, duh!");
@@ -121,9 +123,63 @@ print5: What is the Pi number? 3.14 is the number, duh!
 
 ### Memory management
 
-String tag returns a dynamic allocated string,
-Every new string does not have an auto garbage collector _(will be added on future update).
-Hence, you have to free each dynamic string manually:
+Previously this is how we use to code string in C. We had to use an array of chars:
+
+```javascript
+// Previously when we use string in C
+char sayYourName[30];
+char name[30]; 
+strcpy(name, "Jeff");
+strcpy(sayYourName, "My name is ");
+strcat(sayYouName, name);
+strcat(sayYouNam, ".");
+
+/************ output ************
+My name is Jeff.
+*********************************/
+```
+
+The code above is how we manipulate char array in C, problem with this is that the size is constant and it could not hold string longer than '30'. So what if it happens to be a longer string? 
+
+Another way to fix the problem is to create a dynamic char array by mallocing and then reallocing to a bigger size when we need to hold more char. So, we have to keep track of the size and it can be difficult to manage.
+
+```javascript
+// Dynamically char size previously how we use to code
+char* sayYourName = malloc(sizeof(char*)*30);
+char* name = malloc(sizeof(char*)*30);
+strcpy(name, "Jeff");
+strcpy(sayYourName, "My name is ");
+strcat(sayYouName, name);
+strcat(sayYouNam, ".");
+
+// And when we need more memory we can just realloc the size
+char* sayYouName = realloc(sayYourName, sizeof(char*)*50)
+
+/************ output ************
+My name is Jeff.
+*********************************/
+```
+
+The string tag '$( )' is a simpler form of dynamic chars in C which will adjust accordingly based on the string size, hence when using a string tag, there is no need to know the size of the char array, it will adjust dynamically based on the string size for you. Making dynamic string simpler to code in C similar to other modern languages:
+
+```javascript
+// The new way of manipulatinge string in c
+String name = $("Jeff");
+String sayYouName = $("My name is ", name, ".");
+
+// in comparison to javascript
+var name = "Jeff";
+var sayYouName = "My name is " + name + ".";
+
+/************ output ************
+My name is Jeff.
+*********************************/
+```
+
+However, since string tag returns a dynamic allocated string,
+every new string that has been created does not have an auto garbage collector "_(will be added on future updates)".
+Hence, you still have to free each dynamic string manually:
+
 ```javascript
 free(test);
 free(name);
