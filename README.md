@@ -1,7 +1,6 @@
 # Dynamic String API for C
 
-This is an API to make string coding much easier in C.
-This will make coding string a bit more similar to higher level like Java, JavaScript and etc.
+This is dynamic string API to make string coding much easier in C.
 
 ## Installation of API
 
@@ -13,10 +12,10 @@ git clone https://github.com/vicmoh/DynamicStringAPI
 
 ### 2. Run
 
-To run the program type "make" or "make valgrind" on program directory and it will compile and run.
-Place any of your .c in "src" folder and .h in "include".
-No need to change the makefile.
-Any files you placed in "scr", "include", "lib" will automatically compile and run, just type "make".
+To compile and run the program type 'make' or 'make valgrind' on terminal program directory.
+Place any of your .c files in 'src' folder and .h in 'include'.
+No need to change the 'makefile'.
+Any files you placed in 'scr', 'include', 'lib' will automatically compile and run the program when 'make' is invoked.
 
 ```bash
 make
@@ -24,28 +23,27 @@ make
 
 ### Directory Structure
 
-Any C file should be placed under the "src" folder.
+Any C file should be placed under the 'src' folder.
 There is already main.c where you can start your project.
 
 ```Bash
 src/main.c
 ```
 
-Any shared or static libraries goes under the "lib" folder.
+Any shared or static libraries goes under the 'lib' folder.
 
 ```Bash
 lib/DynamicString.a
 ```
 
-Your header .h files must be inside the "include" folder.
+Your header .h files must be inside the 'include' folder.
 
 ```Bash
 include/DynamicString.h
 ```
 
-The bin folder is where the executable goes to,
-by default when "make", it will compile and create "runProgram",
-which will then run.
+The bin folder is where the executable files goes to,
+by default, 'runProgram' will be your executable when 'make' is invoked.
 
 ```Bash
 bin/runProgam
@@ -55,11 +53,12 @@ bin/runProgam
 
 ### String usage
 
-Simply, any tag inside "$( )" is a string.
-Higher level languages uses "+" symbol to assigned multiple strings.
-In comparison you can assign similar way using "," to represent different strings.
-The function "print( )" is also available which uses the same format to output to the console.
-To declare a string simply:
+Simply, any tag inside '$( )' is a string.
+Higher level languages uses '+' symbol to assign multiple strings together.
+In comparison, you can assign similar way using ',' to represent different strings inside the string tag.
+Similar to other language, the function 'print( )' is also available using the string tag format which ouput to console.
+
+To declare a string:
 
 ```javascript
 String test = $("Hello world!");
@@ -70,7 +69,7 @@ print1: Hello world!
 *********************************/
 ```
 
-You can assign with other string and print using the same format:
+You can also assign with other string. As long as it is in the string tag it will return a dynamicly allocated combined string:
 ```javascript
 String name = $("Vic");
 String sayHello = NULL;
@@ -84,8 +83,8 @@ print2: Hello my name is Vic, how is it going?
 ```
 ### Numbers in string
 
-Number variables such as int or double in string "$( )" must use "\_(age)" or it will not compile.
-You can also use constant numbers instead of variables such as "\_(3)":
+Number variables such as int or double in string tag '$( )' must use '\_( )' or it will not compile.
+You can also use constant numbers instead of variables such as '\_(3)':
 ```javascript
 int age = 8;
 String sayYourCodeYears = $("I have been coding for ", _(age), " years.");
@@ -99,17 +98,17 @@ print3: I have been coding for 8 years.
 Another example:
 ```javascript
 int num1 = 2;
-int num2 = 4;
-String multiply = $(_(num1), " multiply by ", _(num2), " is ", _(num1*num2));
-print("print4: ", multiply);
+int num2 = 2;
+String addition = $(_(num1), " plus by ", _(num2), " is ", _(num1+num2));
+print("print4: ", addition, " minus 1 that's 3 quick math.");
 
 /************ output ************
-print4: 2 multiply by 4 is 8
+print4: 2 plus 2 is 4 minus 1 that's 3 quick math.
 *********************************/
 ```
 
-Here's another example to print with decimals on numbers.
-The first argument in "\_dec( )" is the value, and the second is the number of decimal to show:
+Here's another example to print with decimal places on numbers.
+The first argument in '\_dec( )' is the value, and the second is the number of decimal places to show:
 ```javascript
 double pi = 3.14159;
 String sayPiInDecimal = $("What is the Pi number? ", _dec(pi, 2), " is the number, duh!");
@@ -120,9 +119,11 @@ print5: What is the Pi number? 3.14 is the number, duh!
 *********************************/
 ```
 
-Dynamic string return dynamic allocated memory,
-Every new string does not have an auto garbage collector (will be added on future updates)
-you have to free each dynamic string manually:
+### Memory management
+
+String tag returns a dynamic allocated string,
+Every new string does not have an auto garbage collector _(will be added on future update).
+Hence, you have to free each dynamic string manually:
 ```javascript
 free(test);
 free(name);
@@ -131,6 +132,8 @@ free(sayHello);
 free(sayYourCodeYears);
 free(sayPiInDecimal);
 ```
+
+### Tokenizer
 
 You can also split string through the token object
 which split the token into an array of tokens similar to Java:

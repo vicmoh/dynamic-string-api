@@ -46,6 +46,7 @@
 #define $$ String_newCombineString
 #define _ String_numberToString
 #define _dec String_numberToDecimalString
+#define _num(...) String_numberToStringArg(NARGS(__VA_ARGS__), __VA_ARGS__)
 #define _isEqual String_checkIfStringIsEqual
 #define print(...) String_print(NARGS(__VA_ARGS__), __VA_ARGS__)
 
@@ -59,6 +60,7 @@ char* String_newCombineString(unsigned int numOfArg, ...);
 bool String_isNumberFormat(const char* toBeChecked);
 char* String_numberToDecimalString(long double number, unsigned int numOfDecimal);
 char* String_numberToString(int number);
+char* String_numberToStringArg(unsigned int numOfArg, ...);
 void String_print(unsigned int numOfArg, ...);
 // other api
 char* String_setLowerCase(char* string);
@@ -68,6 +70,6 @@ bool String_isEqual(char* string1, char* string2, char* type);
 char** String_readFileByChar(char* fileName, int* arraySize);
 void String_freeStringArray(char** array, int arraySize);
 bool String_checkifEmailFormat(char* string);
-void String_removeSpace(char* string);
+void String_removeWhiteSpace(char* string);
 
 #endif

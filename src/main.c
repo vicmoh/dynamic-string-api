@@ -11,50 +11,53 @@ int main(){
      * Here are some example API codes below.
      **/
 
-    // simply, any tag inside $() is a string, 
-    // you can assign multiple string with comma "," inside
-    // print() also works the same way as many other modern language which outputs to console
+    // Simply, any tag inside '$( )' is a string.
+    // Higher level languages uses '+' symbol to assign multiple strings together.
+    // In comparison, you can assign similar way using ',' to represent different strings inside the string tag.
+    // Similar to other language, the function 'print( )' is also available using the string tag format which ouput to console.
 
-    // to declare a string
+    // To declare a string:
     String test = $("Hello world!");
     print("print1: ", test);
 
     String name = $("Vic");
     String sayHello = NULL;
 
-    // you can assign with other string and print using the same format
+    // You can also assign with other string. 
+    // As long as it is in the string tag it will return a dynamicly allocated combined string:
     sayHello = $("Hello my name is ", name, ", how is it going?");
     print("print2: ", sayHello);
 
-    // using numbers in string
-    // number variable in string $() must use _(age) or it will not compile
-    int age = 8;
+    // Number variables such as int or double in string tag '$( )' must use '\_( )' or it will not compile.
+    // You can also use constant numbers instead of variables such as '\_(3)':
+    const int age = 8;
     String sayYourCodeYears = $("I have been coding for ", _(age), " years.");
     print("print", _(3) , ": ", sayYourCodeYears); 
 
-    // another example
+    // Another example:
     int num1 = 2;
-    int num2 = 4;
-    String multiply = $(_(num1), " mulitply by ", _(num2), " is ", _(num1*num2));
-    print("print4: ", multiply);
+    int num2 = 2;
+    String addition = $(_(num1), " plus ", _(num2), " is ", _(num1+num2));
+    print("print4: ", addition, " minus 1 that's 3 quick math.");
 
-    // here's another example to print with decimals with numbers
-    double pi = 3.14159;
+    // Here's another example to print with decimal places on numbers.
+    // The first argument in '_dec( )' is the value, and the second is the number of decimal places to show:
+    const double pi = 3.14159;
     String sayPiInDecimal = $("What is the Pi number? ", _dec(pi, 2), " is the number, duh!");
     print("print", _dec(5, 0), ": ", sayPiInDecimal);
 
-    // dynamic string return dynamic allocated memory
-    // dynamic string does not have an auto garbage collector (will be added on future updates)
-    // you have to free each dynamic string manually 
+    // String tag returns a dynamic allocated string,
+    // Every new string does not have an auto garbage collector _(will be added on future update).
+    // Hence, you have to free each dynamic string manually:
     free(test);
     free(name);
-    free(multiply);
+    free(addition);
     free(sayHello);
     free(sayYourCodeYears);
     free(sayPiInDecimal);
 
-    // you can you also split string through the token object
-    // which split the token into an array of tokens similar to java
+    // You can also split string through the token object
+    // which split the token into an array of tokens similar to Java:
     String toBeSplit = $("This string is going to be split into array of string");
     Token* token = split(toBeSplit, " ");
     for(int x=0; x<token->length; x++){
