@@ -1,7 +1,7 @@
 # Dynamic String API for C
 
 This is an API to make string coding much easier in C.
-This will make coding style a bit more similar to higher level like Java, JavaScript and Dart.
+This will make coding string a bit more similar to higher level like Java, JavaScript and etc.
 
 ## Installation of API
 
