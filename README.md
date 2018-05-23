@@ -4,7 +4,7 @@ A dynamic string API to make string coding much easier in C similar to other mod
 
 ## Installation of API
 
-### 1. Downlaod
+### 1. Download
 
 ```Bash
 git clone https://github.com/vicmoh/DynamicStringAPI
