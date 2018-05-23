@@ -25,7 +25,7 @@ make
 ### Directory Structure
 
 Any C file should be placed under the "src" folder.
-There is already main.c where you can start you project.
+There is already main.c where you can start your project.
 
 ```Bash
 src/main.c
