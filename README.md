@@ -21,7 +21,7 @@ Any files you placed in `scr`, `include`, `lib` will automatically compile and r
 make
 ```
 
-### Directory Structure
+### Directory structure
 
 Any C file should be placed under the `src` folder.
 There is already `main.c` where you can start your project.
