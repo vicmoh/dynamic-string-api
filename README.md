@@ -43,11 +43,11 @@ include/DynamicString.h
 include/Tokenizer.h
 ```
 
-The bin folder is where the executable files goes to,
-by default, `runProgram` will be your executable when `make` is invoked on the terminal.
+The bin folder is where the executable files goes to.
+By default, `runProgram` will be your executable when `make` is invoked on the terminal.
 
 ```Bash
-bin/runProgam
+bin/runProgram
 ```
 
 ## How to Use the API
