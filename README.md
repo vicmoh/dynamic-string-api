@@ -165,14 +165,14 @@ My name is Jeff.
 *********************************/
 ```
 
-The string tag `$( )` is a simpler form of dynamic chars in C which will adjust accordingly based on the string size, hence when using a string tag, there is no need to know the size of the char array, it will adjust dynamically based on the string size for you. Making dynamic string simpler to code in C similar to other modern languages:
+The string tag `$( )` is a simpler form of dynamic chars in C which will adjust accordingly based on the string size, hence when using a string tag, there is no need to know the size of the char array, it will adjust dynamically based on the string size for you. Hence, making dynamic string simpler to code in C similar to other modern languages!
 
 ```javascript
-// The new way of manipulatinge string in c
+// The new way of manipulatinge string in C
 String name = $("Jeff");
 String sayYouName = $("My name is ", name, ".");
 
-// in comparison to javascript
+// In comparison to JavaScript
 var name = "Jeff";
 var sayYouName = "My name is " + name + ".";
 
@@ -183,7 +183,7 @@ My name is Jeff.
 
 However, since string tag returns a dynamic allocated string,
 every new string that has been created does not have an auto garbage collector *(will be added on future updates)*.
-Hence, you still have to free each dynamic string manually:
+Some operating system manages out the memory when its not freed, but it's better to do it manually, so don't forget to free your string!
 
 ```javascript
 free(test);
@@ -199,6 +199,7 @@ free(sayPiInDecimal);
 
 You can also split string through the token object
 which split the token into an array of tokens similar to Java:
+
 ```javascript
 String toBeSplit = $("This string is going to be split into array of string");
 Token* token = split(toBeSplit, " ");
