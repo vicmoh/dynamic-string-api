@@ -55,7 +55,7 @@ bin/runProgam
 ### String usage
 
 Simply, any tag inside `$( )` is a string.
-higher level languages uses `+` symbol to assign multiple strings together.
+Higher level languages uses `+` symbol to assign multiple strings together.
 In comparison, you can assign similar way using `,` to represent different strings inside the string tag.
 Similar to other language, the function `print( )` is also available using the string tag format which ouput to console.
 
