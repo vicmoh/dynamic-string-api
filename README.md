@@ -1,8 +1,7 @@
 # Dynamic String API for C
 
-This is an API to make coding much easier in C.
-Since, string is an array or char, the API uses preprocessor of char*  which act as String.
-Hence you can pass string around through char* parameter.
+This is an API to make string coding much easier in C.
+This will make coding style a bit more similar to higher level like Java, JavaScript and Dart.
 
 ## Installation of API
 
@@ -12,13 +11,17 @@ Hence you can pass string around through char* parameter.
 git clone https://github.com/vicmoh/DynamicStringAPI
 ```
 
-### 2. run
+### 2. Run
 
 To run the program type "make" or "make valgrind" on program directory and it will compile and run.
 Place any of your .c in "src" folder and .h in "include".
 No need to change the makefile.
 Any files you placed in "scr", "include", "lib" will automatically compile and run, just type "make".
 Here are some example API codes below.
+
+```bash
+make
+```
 
 ### Directory Structure
 
@@ -94,10 +97,12 @@ Here's another example to print with decimals with numbers:
 double pi = 3.14159;
 String sayPiInDecimal = $("What is the Pi number? ", _dec(pi, 2), " is the number, duh!");
 print("print", _dec(5, 0), ": ", sayPiInDecimal);
+```
 
-// dynamic string return dynamic allocated memory
-// dynamic string does not have an auto garbage collector (will be added on future updates)
-// you have to free each dynamic string manually 
+Dynamic string return dynamic allocated memory,
+Every new string does not have an auto garbage collector (will be added on future updates)
+you have to free each dynamic string manually:
+```javascript
 free(test);
 free(name);
 free(multiply);
