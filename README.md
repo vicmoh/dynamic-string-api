@@ -136,8 +136,9 @@ char sayYourName[30];
 char name[30]; 
 strcpy(name, "Jeff");
 strcpy(sayYourName, "My name is ");
-strcat(sayYouName, name);
-strcat(sayYouNam, ".");
+strcat(sayYourName, name);
+strcat(sayYourName, ".");
+printf("%s", sayYourName);
 
 /************ output ************
 My name is Jeff.
@@ -154,8 +155,9 @@ char* sayYourName = malloc(sizeof(char*)*30);
 char* name = malloc(sizeof(char*)*30);
 strcpy(name, "Jeff");
 strcpy(sayYourName, "My name is ");
-strcat(sayYouName, name);
-strcat(sayYouNam, ".");
+strcat(sayYourName, name);
+strcat(sayYourName, ".");
+printf("%s", sayYourName);
 
 // And when we need more memory we can just realloc the size
 char* sayYouName = realloc(sayYourName, sizeof(char*)*50)
