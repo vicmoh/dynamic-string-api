@@ -17,7 +17,6 @@ To run the program type "make" or "make valgrind" on program directory and it wi
 Place any of your .c in "src" folder and .h in "include".
 No need to change the makefile.
 Any files you placed in "scr", "include", "lib" will automatically compile and run, just type "make".
-Here are some example API codes below.
 
 ```bash
 make
