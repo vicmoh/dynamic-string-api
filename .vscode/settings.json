@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "dynamicstring.h": "c",
+        "tokenizer.h": "c",
+        "math.h": "c",
+        "errno.h": "c",
+        "malloc.h": "c",
+        "stdlib.h": "c"
+    },
+    "C_Cpp.dimInactiveRegions": false
+}
