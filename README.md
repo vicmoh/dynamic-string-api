@@ -88,7 +88,7 @@ print2: Hello my name is Vic, how is it going?
 ### Number in string
 
 Number variables such as int or double in string tag `$( )` must use `_( )` or it will not compile.
-You can also use constant numbers inside instead of variables such as `\_(3)`:
+You can also use constant numbers inside instead of variables such as `_(3)`:
 
 ```javascript
 int age = 8;
@@ -114,7 +114,7 @@ print4: 2 plus 2 is 4 minus 1 that's 3 quick math.
 ```
 
 Here's another example to print with decimal places on numbers.
-The first argument in `\_dec( )` is the value, and the second is the number of decimal places to show:
+The first argument in `_dec( )` is the value, and the second is the number of decimal places to show:
 
 ```javascript
 double pi = 3.14159;
