@@ -70,7 +70,7 @@ print1: Hello world!
 *********************************/
 ```
 
-You can also assign string with other string. As long as it is in the string tag it will return a dynamicly allocated combined string:
+You can also assign string with other string. As long as it is in the string tag it will return a dynamically allocated combined string:
 
 ```javascript
 String name = $("Vic");
