@@ -24,7 +24,7 @@ make
 ### Directory Structure
 
 Any C file should be placed under the `src` folder.
-There is already main.c where you can start your project.
+There is already `main.c` where you can start your project.
 
 ```Bash
 src/main.c
@@ -40,10 +40,11 @@ Your header .h files must be inside the `include` folder.
 
 ```Bash
 include/DynamicString.h
+include/Tokenizer.h
 ```
 
 The bin folder is where the executable files goes to,
-by default, `runProgram` will be your executable when `make` is invoked in terminal.
+by default, `runProgram` will be your executable when `make` is invoked on the terminal.
 
 ```Bash
 bin/runProgam
