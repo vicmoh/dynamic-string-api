@@ -21,7 +21,7 @@ Any files you placed in `scr`, `include`, `lib` will automatically compile and r
 make
 ```
 
-### Directory structure
+### Directory Structure
 
 Any C file should be placed under the `src` folder.
 There is already `main.c` where you can start your project.
@@ -52,7 +52,7 @@ bin/runProgam
 
 ## How to Use the API
 
-### String usage
+### String Usage
 
 Simply, any tag inside `$( )` is a string.
 Higher level languages uses `+` symbol to assign multiple strings together.
@@ -85,7 +85,7 @@ print("print2: ", toBeAssigned);
 print2: Hello my name is Vic, how is it going?
 *********************************/
 ```
-### Number in string
+### Number in String
 
 Number variables such as int or double in string tag `$( )` must use `_( )` or it will not compile.
 You can also use constant numbers inside instead of variables such as `_(3)`:
@@ -126,7 +126,7 @@ print5: What is the Pi number? 3.14 is the number, duh!
 *********************************/
 ```
 
-### Memory management
+### Memory Management
 
 Previously this is how we use to code string in C. We had to use an array of chars:
 
