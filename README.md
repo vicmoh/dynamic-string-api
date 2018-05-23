@@ -91,7 +91,7 @@ Number variables such as int or double in string tag `$( )` must use `_( )` or i
 You can also use constant numbers inside instead of variables such as `_(3)`:
 
 ```javascript
-int age = 8;
+const int age = 8;
 String sayYourCodeYears = $("I have been coding for ", _(age), " years.");
 print("print", _(3) , ": ", sayYourCodeYears); 
 
@@ -117,7 +117,7 @@ Here's another example to print with decimal places on numbers.
 The first argument in `_dec( )` is the value, and the second is the number of decimal places to show:
 
 ```javascript
-double pi = 3.14159;
+const double pi = 3.14159;
 String sayPiInDecimal = $("What is the Pi number? ", _dec(pi, 2), " is the number, duh!");
 print("print", _dec(5, 0), ": ", sayPiInDecimal);
 
