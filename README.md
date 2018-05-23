@@ -1,4 +1,4 @@
-# DYNAMIC STRING API FOR C
+# Dynamic String API for C
 
 This is an API to make coding much easier in C.
 Since, string is an array or char, the API uses preprocessor of char*  which act as String.
