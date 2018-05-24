@@ -4,11 +4,11 @@
  * https://github.com/vicmoh/DynamicStringAPI
  **********************************************************/
 
-//guard
+// guard
 #ifndef _DYNAMICSTRING_H_
 #define _DYNAMICSTRING_H_
 
-//include libraries
+// include libraries
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -20,7 +20,8 @@
 #include <math.h>
 #include <stdarg.h>
 
-//macros
+// macros
+#define String char* 
 #define GET_ARRAY_SIZE( array ) ( sizeof( array ) / sizeof( *array )) //or array[0] instead of *array
 #define UPPERCASE_RANGE( var ) (var >= 65 && var <= 90) 
 #define LOWERCASE_RANGE( var ) (var >= 97 && var <= 122)
@@ -34,42 +35,45 @@
 #define CHECK if(DEBUG_SETTING)printf("CHECK\n")
 
 /**********************************************************
- * functions definition
+ * Function Definition
  **********************************************************/
 
-// any number param preprocessor
+// 9 param preprocessor
 #define NARGS_SEQ(_1,_2,_3,_4,_5,_6,_7,_8,_9,N,...) N
 #define NARGS(...) NARGS_SEQ(__VA_ARGS__, 9, 8, 7, 6, 5, 4, 3, 2, 1)
-// short cut
-#define String char* 
+// function shortcuts
 #define $(...) String_newCombineString(NARGS(__VA_ARGS__), __VA_ARGS__)
 #define $$ String_newCombineString
-#define _ String_numberToString
-#define _dec String_numberToDecimalString
-#define _num(...) String_numberToStringArg(NARGS(__VA_ARGS__), __VA_ARGS__)
+#define _ String_numberToStringInt
+#define _dec String_numberToStringDecimal
+#define _num(...) String_numberToString(NARGS(__VA_ARGS__), __VA_ARGS__)
 #define _isEqual String_checkIfStringIsEqual
 #define print(...) String_print(NARGS(__VA_ARGS__), __VA_ARGS__)
 
 /**********************************************************
- * string api functions
+ * String Function
  **********************************************************/
 
-// main api
-char* String_newString(char* newString);
-char* String_newCombineString(unsigned int numOfArg, ...);
-bool String_isNumberFormat(const char* toBeChecked);
-char* String_numberToDecimalString(long double number, unsigned int numOfDecimal);
-char* String_numberToString(int number);
-char* String_numberToStringArg(unsigned int numOfArg, ...);
+// string constructor, which returns dynamic strings
+String String_newString(String newString);
+String String_newCombineString(unsigned int numOfArg, ...);
+// number to string functions
+String String_numberToString(unsigned int numOfArg, ...);
+String String_numberToStringInt(int number);
+String String_numberToStringDecimal(long double number, unsigned int numOfDecimal);
+// string predicate functions
+int String_compareString(String string1, String string2, bool isIgnoreCase);
+bool String_isEqual(String string1, String string2, bool isIgnoreCase);
+bool String_isNumberFormat(const String toBeChecked);
+bool String_isEmailFormat(String toBeChecked);
+// string setter functions
+String String_setLowerCase(String stringToBeSet);
+String String_setUpperCase(String stringToBeSet);
+String String_removeWhiteSpace(String stringToBeSet); 
+// void funtions
 void String_print(unsigned int numOfArg, ...);
-// other api
-char* String_setLowerCase(char* string);
-char* String_setUpperCase(char* string);
-int String_compareString(char* string1, char* string2, char* type);
-bool String_isEqual(char* string1, char* string2, char* type);
-char** String_readFileByChar(char* fileName, int* arraySize);
-void String_freeStringArray(char** array, int arraySize);
-bool String_checkifEmailFormat(char* string);
-void String_removeWhiteSpace(char* string);
+void String_freeStringArray(String* array, int arraySize);
+// other functions
+String* String_readFileByChar(String fileName, int* arraySize);
 
 #endif

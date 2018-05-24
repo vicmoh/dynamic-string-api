@@ -4,11 +4,11 @@
  * https://github.com/vicmoh/DynamicStringAPI
  **********************************************************/
 
-//guard
+// guard
 #ifndef _TOKENIZER_H_
 #define _TOKENIZER_H_
 
-//include libraries
+// include libraries
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -21,28 +21,33 @@
 #include <stdarg.h>
 
 /**********************************************************
- * struct
+ * Struct Object
  **********************************************************/
 
 typedef struct TokenClass{
     char** list;
     unsigned int length;
+    struct TokenClass* (*splitter)(char* string, const char* delim);
+    struct TokenClass* (*combine)(struct TokenClass token, char* string, const char* delim);
 }Token;
 
 /**********************************************************
- * functions definition
+ * Function Definition
  **********************************************************/
 
 #define split Token_split
 
 /**********************************************************
- * string api functions
+ * Token Function
  **********************************************************/
 
+// constructor
 Token* Token_newToken();
 Token* Token_split(char* stringToBeSplit, const char* delimiter);
+// getter functions
 char* Token_combinedToken(Token* token, unsigned int tokenStart, int unsigned tokenEnd);
-int Token_searchToken(Token* token, const char* stringToBeSearched, char* getIndexOrCount);
+int Token_searchToken(Token* token, const char* stringToBeSearched, bool trueIfIndex_falseIfCount);
+// void functions
 void Token_freeToken(Token* toBeFreed);
 
 #endif
