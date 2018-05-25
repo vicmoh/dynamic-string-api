@@ -21,33 +21,34 @@
 #include <stdarg.h>
 
 /**********************************************************
- * Struct Object
+ * Object Struct
  **********************************************************/
 
 typedef struct TokenClass{
     char** list;
     unsigned int length;
-    struct TokenClass* (*splitter)(char* string, const char* delim);
-    struct TokenClass* (*combine)(struct TokenClass token, char* string, const char* delim);
+    char* (*$combine)(struct TokenClass*, unsigned int tokenStart, unsigned int tokenEnd);
+    int (*search)(struct TokenClass*, const char* stringToBeSearched, bool trueIfIndexSearch_falseIfCounting);
+    void (*free)(void* tokenObjectToBeFreed);
 }Token;
 
 /**********************************************************
  * Function Definition
  **********************************************************/
 
-#define split Token_split
+#define split new_Token
+#define for_in( x , object ) for(int x = 0; x < ( object->length ) ; x++)
 
 /**********************************************************
  * Token Function
  **********************************************************/
 
 // constructor
-Token* Token_newToken();
-Token* Token_split(char* stringToBeSplit, const char* delimiter);
+Token* new_Token(char* stringToBeSplit, const char* delimiter);
 // getter functions
-char* Token_combinedToken(Token* token, unsigned int tokenStart, int unsigned tokenEnd);
-int Token_searchToken(Token* token, const char* stringToBeSearched, bool trueIfIndex_falseIfCount);
+char* Token_$combine(Token* token, unsigned int tokenStart, int unsigned tokenEnd);
+int Token_search(Token* token, const char* stringToBeSearched, bool trueIfIndexSearch_falseIfCounting);
 // void functions
-void Token_freeToken(Token* toBeFreed);
+void Token_free(void* tokenObjectToBeFreed);
 
 #endif

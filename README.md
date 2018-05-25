@@ -41,6 +41,8 @@ Your header .h files must be inside the `include` folder.
 ```Bash
 include/DynamicString.h
 include/Tokenizer.h
+include/ArrayMap.h
+include/LinkedList.h
 ```
 
 The bin folder is where the executable files goes to.
@@ -190,7 +192,7 @@ My name is Jeff.
 ```
 
 However, since string tag returns a dynamic allocated string,
-every new string that has been created does not have an auto garbage collector *(will be added on future updates)*.
+every new string that has been created does not have an auto garbage collector.
 Some operating system manages out the memory when its not freed, but it's better to do it manually, so don't forget to free your string!
 
 ```javascript
@@ -230,5 +232,5 @@ token[10]: string
 *********************************/
 
 free(toBeSplit);
-Token_freeToken(token);
+Token_free(token);
 ```

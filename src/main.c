@@ -1,5 +1,13 @@
+/**********************************************************
+ * @author Vicky Mohammad
+ * Copyright 2018, Vicky Mohammad, All rights reserved.
+ * https://github.com/vicmoh/DynamicStringAPI
+ **********************************************************/
+
 #include "DynamicString.h"
 #include "Tokenizer.h"
+#include "ArrayMap.h"
+#include "LinkedList.h"
 
 int main(){
     /**
@@ -78,5 +86,5 @@ int main(){
     token[10]: string*/
 
     free(toBeSplit);
-    Token_freeToken(token);
+    Token_free(token);
 }//end main

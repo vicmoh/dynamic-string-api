@@ -13,17 +13,17 @@ runProgram:
 
 # test command
 
-testing: createTest runTest
+testing: library createTest runTest
 
 createTest:
 	$(CC) $(CFLAGS) test/test.c lib/*.a -o bin/runTest
 
 runTest:
-	./bin/runTest
+	valgrind --leak-check=full ./bin/runTest
 
 # creating a library
 
-library: DynamicString.o Tokenizer.o libraryCreate cleanObject
+library: DynamicString.o Tokenizer.o ArrayMap.o libraryCreate cleanObject
 
 DynamicString.o:
 	$(CC) $(CFLAGS) -c lib/src/DynamicString.c -o bin/DynamicString.o
@@ -31,16 +31,22 @@ DynamicString.o:
 Tokenizer.o:
 	$(CC) $(CFLAGS) -c lib/src/Tokenizer.c -o bin/Tokenizer.o
 
+ArrayMap.o:
+	$(CC) $(CFLAGS) -c lib/src/ArrayMap.c -o bin/ArrayMap.o
+
 libraryCreate:
-	ar rc lib/DynamicStringAPI.a bin/DynamicString.o bin/Tokenizer.o
-	
+	ar rc lib/DynamicStringAPI.a bin/DynamicString.o bin/Tokenizer.o bin/ArrayMap.o
+
 #ranlib DynamicStringAPI.a
 # other command
 
 valgrind: program runValgrind
 
 runValgrind:
-	valgrind ./bin/runProgram
+	valgrind --leak-check=full ./bin/runProgram
+
+cleanLibrary:
+	rm lib/*.a
 
 cleanObject:
 	rm bin/*.o
