@@ -57,7 +57,7 @@ __VA_ARGS__, 20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1)\
 #define _num(...) String_$numberToString(ARGS(__VA_ARGS__), __VA_ARGS__)
 #define _isEqual String_isEqual
 #define print(...) String_print(ARGS(__VA_ARGS__), __VA_ARGS__)
-//credit for lambda https://blog.noctua-software.com/c-lambda.html
+// credit for lambda https://blog.noctua-software.com/c-lambda.html
 #define LAMBDA(varfunction) ({ varfunction function;})
 // class preprocessor
 #define FUNCTION(className, funcName, returnType, param, code)
