@@ -52,7 +52,7 @@ By default, `runProgram` will be your executable when `make` is invoked on the t
 bin/runProgram
 ```
 
-## How to Use the API
+## How to Use the Dynamic String API
 
 ### String Usage
 
@@ -205,7 +205,7 @@ free(sayYourCodeYears);
 free(sayPiInDecimal);
 ```
 
-### Tokenizer
+## Tokenizer
 
 You can also split string through the token object
 which split the token into an array of tokens similar to Java:

@@ -11,5 +11,7 @@
         "ctype.h": "c",
         "linkedlist.h": "c"
     },
-    "C_Cpp.dimInactiveRegions": false
+    "C_Cpp.dimInactiveRegions": false,
+    "C_Cpp.errorSquiggles": "Enabled",
+    "editor.minimap.enabled": false
 }

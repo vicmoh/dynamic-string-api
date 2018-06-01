@@ -6,7 +6,7 @@ CFLAGS = -Wall -g -Iinclude -std=c11
 program: createProgram runProgram
 
 createProgram:
-	$(CC) $(CFLAGS) src/*.c lib/*.a -o bin/runProgram
+	$(CC) $(CFLAGS) src/*.c lib/*.a -o bin/runProgram -lm
 
 runProgram:
 	./bin/runProgram
@@ -16,7 +16,7 @@ runProgram:
 testing: library createTest runTest
 
 createTest:
-	$(CC) $(CFLAGS) test/test.c lib/*.a -o bin/runTest
+	$(CC) $(CFLAGS) test/test.c lib/*.a -o bin/runTest -lm
 
 runTest:
 	valgrind --leak-check=full ./bin/runTest

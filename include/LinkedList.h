@@ -9,10 +9,17 @@
 #define _LINKEDLIST_H_
 
 // include libraries
+// include libraries
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <errno.h>
 #include <stdbool.h>
+#include <string.h>
+#include <ctype.h>
+#include <malloc.h>
+#include <math.h>
+#include <stdarg.h>
 
 /**********************************************************
  * Object Struct

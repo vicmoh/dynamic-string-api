@@ -9,6 +9,7 @@
 #define _TOKENIZER_H_
 
 // include libraries
+// include libraries
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -37,7 +38,6 @@ typedef struct TokenClass{
  **********************************************************/
 
 #define split new_Token
-#define for_in( x , object ) for(int x = 0; x < ( object->length ) ; x++)
 
 /**********************************************************
  * Token Function
