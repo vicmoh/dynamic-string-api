@@ -5,8 +5,8 @@
  **********************************************************/
 
 // guard
-#ifndef _DYNAMICSTRING_H_
-#define _DYNAMICSTRING_H_
+#ifndef _DYNAMICsTRING_H_
+#define _DYNAMICsTRING_H_
 
 // include libraries
 #include <stdio.h>
@@ -48,24 +48,26 @@ __VA_ARGS__, 20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1)\
 #define TRY do{ jmp_buf ex_buf__; if( !setjmp(ex_buf__) ){
 #define CATCH } else {
 #define ENDTRY } }while(0)
-#define THROW longjmp(ex_buf__, 1))
+#define THROW longjmp(ex_buf__, 1)
 // string preprocessor
 #define $(...) new_String(ARGS(__VA_ARGS__), __VA_ARGS__)
-#define $$( var ) String_free( (void*) &var ); var
-#define _ String_$numberToStringInt
-#define _dec String_$numberToStringDecimal
-#define _num(...) String_$numberToString(ARGS(__VA_ARGS__), __VA_ARGS__)
-#define _isEqual String_isEqual
-#define print(...) String_print(ARGS(__VA_ARGS__), __VA_ARGS__)
+#define $$( var ) string_advanceFree( (void*) &var ); var
+#define $isEqual string_isEqual
+#define _ string_numberToStringInt
+#define _dec string_numberToStringDecimal
+#define _num(...) string_numberToString(ARGS(__VA_ARGS__), __VA_ARGS__)
+// other quick preproccessor
+#define print(...) string_print(ARGS(__VA_ARGS__), __VA_ARGS__)
+#define loop(x, num) for(int x=0; x<num; x++)
+#define free( var ) dummy_safeFree( (void*) &var )
 // credit for lambda https://blog.noctua-software.com/c-lambda.html
 #define LAMBDA(varfunction) ({ varfunction function;})
 // class preprocessor
-#define FUNCTION(className, funcName, returnType, param, code)
+#define FUNCTION( code ) code
 #define CONSTRUCTOR_MALLOC(className) className* this = malloc(sizeof(className));
 #define CONSTRUCTOR( code ) code
-#define VAR( code ) code
-#define CLASS( className, constructor, function) \
-className* new_##className(){\
+#define CLASS( className, param, constructor, function) \
+className* new_##className param{\
     CONSTRUCTOR_MALLOC(className)\
     constructor\
     return this;\
@@ -78,29 +80,31 @@ className* new_##className(){\
 // string constructor, which returns dynamic strings
 String new_String(unsigned int numOfArg, ...);
 // number to string functions
-String String_$numberToString(unsigned int numOfArg, ...);
-String String_$numberToStringInt(int number);
-String String_$numberToStringDecimal(long double number, unsigned int numOfDecimal);
+String string_numberToString(unsigned int numOfArg, ...);
+String string_numberToStringInt(int number);
+String string_numberToStringDecimal(long double number, unsigned int numOfDecimal);
 // string predicate functions
-int String_compareString(String string1, String string2, bool isIgnoreCase);
-bool String_isEqual(String string1, String string2, bool isIgnoreCase);
-bool String_isNumberFormat(const String toBeChecked);
-bool String_isEmailFormat(String toBeChecked);
+int string_compareString(String string1, String string2, bool isIgnoreCase);
+bool string_isEqual(String string1, String string2, bool isIgnoreCase);
+bool string_isNumberFormat(const String toBeChecked);
+bool string_isEmailFormat(String toBeChecked);
 // setter function
-String String_$setString(String toBeSet);
-void String_setLowerCase(String toBeSet);
-void String_setUpperCase(String toBeSet);
-void String_setNoWhiteSpace(String toBeSet); 
-void String_setSlice(String toBeSliced, unsigned int startIndexToKeep, unsigned int endIndexToKeep);
+String string_setString(String toBeSet);
+void string_setLowerCase(String toBeSet);
+void string_setUpperCase(String toBeSet);
+void string_setNoWhiteSpace(String toBeSet); 
+void string_setSlice(String toBeSliced, unsigned int startIndexToKeep, unsigned int endIndexToKeep);
 // void funtions
-void String_print(unsigned int numOfArg, ...);
-void String_freeStringArray(String* array, int arraySize);
-void String_free(void** stringToBeFreed);
+void string_print(unsigned int numOfArg, ...);
+void string_freeStringArray(String* array, int arraySize);
+void string_advanceFree(void** stringToBeFreed);
+void string_free(void* stringToBeFreed);
 // other functions
-String* String_readFileByChar$(String fileName, int* arraySize);
+String* string_readFileByChar(String fileName, int* arraySize);
 // dummy function for constructor
-String Dummy_print(void* toBePrinted);
-void Dummy_delete(void* toBeDeleted);
-int Dumm_compare(const void* first, const void* second);
+String dummy_print(void* toBePrinted);
+void dummy_delete(void* toBeDeleted);
+int dummy_compare(const void* first, const void* second);
+void dummy_safeFree(void** toBeFreed);
 
 #endif

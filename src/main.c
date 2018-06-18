@@ -86,5 +86,5 @@ int main(){
     token[10]: string*/
 
     free(toBeSplit);
-    Token_free(token);
+    token->destroy(token);
 }//end main
