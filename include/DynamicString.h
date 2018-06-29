@@ -20,6 +20,7 @@
 #include <math.h>
 #include <stdarg.h>
 #include <setjmp.h>
+#include <ArrayMap.h>
 
 // macro
 #define GET_ARRAY_SIZE( array ) ( sizeof( array ) / sizeof( *array )) //or array[0] instead of *array
@@ -43,7 +44,11 @@
 #define ARGS(...) ARGS_SEQUENCE(\
 __VA_ARGS__, 20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1)\
 
-// system preprocessor
+// system 
+Array* _GARBAGE_;
+#define MEM_START Array* _GARBAGE_ = new_Array(free_function)
+#define MEM( var, size ) var = malloc(sizeof(*var)*size); array_add(_GARBAGE_, var);
+#define MEM_DELETE array_free(_GARBAGE_)
 #define String char* 
 #define TRY do{ jmp_buf ex_buf__; if( !setjmp(ex_buf__) ){
 #define CATCH } else {
@@ -59,7 +64,7 @@ __VA_ARGS__, 20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1)\
 // other quick preproccessor
 #define print(...) string_print(ARGS(__VA_ARGS__), __VA_ARGS__)
 #define loop(x, num) for(int x=0; x<num; x++)
-#define free( var ) dummy_safeFree( (void*) &var )
+#define free( var ) dummy_safeFree( (void*) &var ); var = NULL
 // credit for lambda https://blog.noctua-software.com/c-lambda.html
 #define LAMBDA(varfunction) ({ varfunction function;})
 // class preprocessor
@@ -106,5 +111,6 @@ String dummy_print(void* toBePrinted);
 void dummy_delete(void* toBeDeleted);
 int dummy_compare(const void* first, const void* second);
 void dummy_safeFree(void** toBeFreed);
+void free_function(void* toBefreed);
 
 #endif
