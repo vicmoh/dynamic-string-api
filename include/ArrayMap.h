@@ -5,8 +5,8 @@
  **********************************************************/
 
 // guard
-#ifndef _ARRAYmAP_H_
-#define _ARRAYmAP_H_
+#ifndef _ARRAY_MAP_H_
+#define _ARRAY_MAP_H_
 
 // include libraries
 #include <stdio.h>

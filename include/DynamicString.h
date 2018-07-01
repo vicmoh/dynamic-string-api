@@ -5,8 +5,8 @@
  **********************************************************/
 
 // guard
-#ifndef _DYNAMICsTRING_H_
-#define _DYNAMICsTRING_H_
+#ifndef _DYNAMIC_STRING_H_
+#define _DYNAMIC_STRING_H_
 
 // include libraries
 #include <stdio.h>

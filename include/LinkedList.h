@@ -5,8 +5,8 @@
  **********************************************************/
 
 // guard
-#ifndef _LINKEDlIST_H_
-#define _LINKEDlIST_H_
+#ifndef _LINKED_LIST_H_
+#define _LINKED_LIST_H_
 
 // include libraries
 // include libraries
