@@ -17,10 +17,8 @@
 #include <string.h>
 #include <ctype.h>
 #include <malloc.h>
-#include <math.h>
 #include <stdarg.h>
 #include <setjmp.h>
-#include <ArrayMap.h>
 
 // macro
 #define GET_ARRAY_SIZE( array ) ( sizeof( array ) / sizeof( *array )) //or array[0] instead of *array
@@ -43,18 +41,13 @@
 #define ARGS_SEQUENCE(_1,_2,_3,_4,_5,_6,_7,_8,_9,_10,_11,_12,_13,_14,_15,_16,_17,_18,_19,_20,N,...) N
 #define ARGS(...) ARGS_SEQUENCE(\
 __VA_ARGS__, 20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1)\
-
-// system 
-Array* _GARBAGE_;
-#define MEM_START Array* _GARBAGE_ = new_Array(free_function)
-#define MEM( var, size ) var = malloc(sizeof(*var)*size); array_add(_GARBAGE_, var);
-#define MEM_DELETE array_free(_GARBAGE_)
-#define String char* 
+// try catch
 #define TRY do{ jmp_buf ex_buf__; if( !setjmp(ex_buf__) ){
 #define CATCH } else {
 #define ENDTRY } }while(0)
 #define THROW longjmp(ex_buf__, 1)
 // string preprocessor
+#define String char* 
 #define $(...) new_String(ARGS(__VA_ARGS__), __VA_ARGS__)
 #define $$( var ) string_advanceFree( (void*) &var ); var
 #define $isEqual string_isEqual
@@ -68,10 +61,19 @@ Array* _GARBAGE_;
 // credit for lambda https://blog.noctua-software.com/c-lambda.html
 #define LAMBDA(varfunction) ({ varfunction function;})
 // class preprocessor
-#define FUNCTION( code ) code
+#define FUNCTION( name, param ) name
 #define CONSTRUCTOR_MALLOC(className) className* this = malloc(sizeof(className));
 #define CONSTRUCTOR( code ) code
-#define CLASS( className, param, constructor, function) \
+#define CLASS_( className, param, constructor, function) \
+className* new_##className param{\
+    CONSTRUCTOR_MALLOC(className)\
+    constructor\
+    return this;\
+} function
+#define CLASS( className, param, instance, constructor, function) \
+typedef struct{\
+    instance;\
+} className;\
 className* new_##className param{\
     CONSTRUCTOR_MALLOC(className)\
     constructor\

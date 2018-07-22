@@ -9,7 +9,6 @@
 #define _LINKED_LIST_H_
 
 // include libraries
-// include libraries
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -18,7 +17,6 @@
 #include <string.h>
 #include <ctype.h>
 #include <malloc.h>
-#include <math.h>
 #include <stdarg.h>
 
 /**********************************************************
@@ -53,7 +51,7 @@ typedef struct ListClass{
     void* (*getFromBack)(struct ListClass list);
     void* (*findElement)(struct ListClass list, bool (*customCompare)(const void* first,const void* second), const void* searchRecord);
     int (*getLength)(struct ListClass list);
-    char* (*$toString)(struct ListClass list);
+    char* (*toString)(struct ListClass list);
     ListIterator (*createIterator)(struct ListClass list);
     ListIterator (*createBackIterator)(struct ListClass list);
     void* (*nextElement)(struct ListIteratorClass* iter);
@@ -80,7 +78,7 @@ void* list_getFromFront(List list);
 void* list_getFromBack(List list);
 void* list_findElement(List list, bool (*customCompare)(const void* first,const void* second), const void* searchRecord);
 int list_getLength(List list);
-char* list_$toString(List list);
+char* list_toString(List list);
 // iterator function
 ListIterator list_createIterator(List list);
 ListIterator list_createBackIterator(List list);

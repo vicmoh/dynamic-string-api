@@ -9,7 +9,6 @@
 #define _TOKENIZER_H_
 
 // include libraries
-// include libraries
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -18,7 +17,6 @@
 #include <string.h>
 #include <ctype.h>
 #include <malloc.h>
-#include <math.h>
 #include <stdarg.h>
 
 /**********************************************************

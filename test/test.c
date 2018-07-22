@@ -9,19 +9,18 @@
 #include "ArrayMap.h"
 #include "LinkedList.h"
 
-typedef struct{
-    long double x;
-    long double y;
-}Point;
-
 CLASS(Point, (long double x, long double y),
+    //declare instance varible
+    long double x;
+    long double y;,
+
     CONSTRUCTOR(
         this->x = x;
         this->y = y;
     ),//end constructor
 
-    Point* point_clone(Point* pointToBeClone){
-        Point* new = new_Point(pointToBeClone->x, pointToBeClone->y);
+    Point* point_clone(Point* toBeClone){
+        Point* new = new_Point(toBeClone->x, toBeClone->y);
         return new;
     }//end func
 
@@ -33,47 +32,58 @@ CLASS(Point, (long double x, long double y),
     }//end func
 
     void point_multiply(Point* this, int numToMultiply){
-        this->x *= numToMultiply;
-        this->y *= numToMultiply;
+        this->x = this->x * numToMultiply;
+        this->y = this->y * numToMultiply;
     }//end func
-);//end 
+);//end class
 
-static jmp_buf s_jumpBuffer;
+CLASS(Person, (String name, int age),
+    // dec instance
+    String name;
+    int age;,
+    
+    // construct person
+    CONSTRUCTOR(
+        this->name = name;
+        this->age = age;
+    ),
 
-void Test() {
-  // Rough equivalent of `throw`
-  longjmp(s_jumpBuffer, 42);
-}
-
-
-void Example() { 
-  if (setjmp(s_jumpBuffer)) {
-    // The longjmp was executed and returned control here
-    printf("Exception happened here\n");
-  } else {
-    // Normal code execution starts here
-    Test();
-  }
-}
+    // func to free
+    void person_free(void* this){
+        if(this == NULL){return;}
+        free(((Person*)(this))->name);
+        free(this);
+    }//end func
+);//end class
 
 int main(){
 
+    // testing some classes
+    Array* people = new_Array(person_free);
+    array_add(people, new_Person($("Vic"), 12) );
+    array_add(people, new_Person($("Bob"), 15) );
+    for_in(x, people){
+        print( "name ", _(x+1), " is ", ((Person*)(array_getIndexOf(people, x)))->name );
+    }//end for
+    array_free(people);
+
     // garbage collector
     MEM_START;
-    String MEM(asdfafse, 123);
-    String MEM(someString, 123);
-    String MEM(secondString, 123);
-    String MEM(someDude, 123);
-    String MEM(stringTest, 123);
-    
-    stringTest = someDude;
-    asdfafse = someString;
-    asdfafse = secondString;
-    strcpy(someDude, "hello");
+        String hello = $("hello"); MEM_ADD(hello);
+        String myName = $("my name is vic"); MEM_ADD(myName);
+    MEM_END;
 
-    MEM_DELETE;
-    printf("1 2 = %p %p\n", someString, asdfafse);
-
+    MEM_START;
+        int num = 0;
+        loop(x, 5){
+            num++;
+            String tempStr = $("index is ", _(num));
+            String tempStr2 = $("the ", tempStr);
+            print(tempStr);
+            // free
+            free(tempStr); free(tempStr2);
+        }//end loop
+    MEM_END;
 
     // testing classes
     Point* point = new_Point(10, 10);
@@ -81,7 +91,6 @@ int main(){
     point_multiply(point, 5);
     print("after = ", _(point->x), " ", _(point->y));
     point_free(point);
-
 
     //c
     Array* listOfCars = new_Array(string_free);
@@ -95,12 +104,6 @@ int main(){
 
     print("car is ", listOfCars->getIndexOf(listOfCars, 1));
     listOfCars->destroy(listOfCars);
-
-    /**
-     * this is your playground, you can test the API below
-     * to run the test type "make testing" on terminal program directory
-     */
-
     //******************************************* testing string tag
 
     String test = $("Hello world!");
@@ -180,7 +183,7 @@ int main(){
 
     //**********************************************************map test
 
-    Map* map = new_Map(11, string_free);
+    Map* map = new_Map(50, string_free);
 
     map->add(map, "one", $("hunny"));
     map->add(map, "two", $("boo boo"));

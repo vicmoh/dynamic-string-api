@@ -24,7 +24,13 @@
  * Function Definition
  **********************************************************/
 
+// for in like javascript
 #define for_in( x , object ) for(int x = 0; x < ( object->length ) ; x++)
+// garbage collector 
+#define MEM_START _GARBAGE_COLLECTOR_ = new_Array(garabage_freeFunction)
+#define MEM_ADD( var ) array_add(_GARBAGE_COLLECTOR_, var)
+#define MEM_END array_free(_GARBAGE_COLLECTOR_)
+#define M( var ) MEM_ADD( var )
 
 /**********************************************************
  * Array Class
@@ -45,6 +51,8 @@ typedef struct ArrayClass{
     void* (*removeIndexOf)(struct ArrayClass* object, int theIndex);
     void (*destroy)(void* object);
 }Array;
+
+Array* _GARBAGE_COLLECTOR_;
 
 // construtor
 Array* new_Array(void (*deleteFunction)(void *));
@@ -87,5 +95,6 @@ int map_isPrime(const int toBeChecked);
 int map_nextPrime(int number);
 void map_free(void* toBeFreed);
 void map_freeMapData(void* toBeFreed);
+void garabage_freeFunction(void* toBeDeleted);
 
 #endif
