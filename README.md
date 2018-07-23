@@ -276,7 +276,7 @@ array_free(listOfString);
 ### Map
 
 ```javascript
-// declaring a new object. The first param set the size of table,
+// Declaring a new object. The first param set the size of table,
 // if table is maxed out it will automatically resize the table.
 // The second param takes a function of what to free.
 // You can pass in NULL if you don't wont the data to be freed.
