@@ -54,8 +54,7 @@ int main(){
     String sayPiInDecimal = $("What is the Pi number? ", _dec(pi, 2), " is the number, duh!");
     print("print", _dec(5, 0), ": ", sayPiInDecimal);
 
-    // String tag returns a dynamic allocated string,
-    // Every new string does not have an auto garbage collector _(will be added on future update).
+    // String tag returns a dynamic allocated string.
     // Hence, you have to free each dynamic string manually:
     delete(test, name, addition, sayHello, sayYourCodeYears, sayPiInDecimal);
 
