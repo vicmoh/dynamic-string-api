@@ -183,7 +183,7 @@ every new string that has been created needs to be freed.
 So don't forget to free your string!
 
 ```javascript
-// if DynamicString.h is used it will assign null after free when using free()
+// If DynamicString.h is used it will assign null after free when using free()
 free(test);
 free(name);
 free(multiply);
