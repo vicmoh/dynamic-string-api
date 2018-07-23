@@ -10,87 +10,124 @@
 #include "LinkedList.h"
 
 CLASS(Point, (long double x, long double y),
-    //declare instance varible
+    // To declare an instance variable
+    // you must add "," comma at the end
     long double x;
-    long double y;,
+    long double y;
+    String toString,
 
+    // Use "this" to access the instance
+    // variable members in Point
+    // don't forget "," comma at the end
     CONSTRUCTOR(
         this->x = x;
         this->y = y;
+        this->toString = $("cordinate: ", _(this->x), ", ", _(this->y));
     ),//end constructor
 
+    // function to free object
+    void point_free(void* obj){
+        Point* this = obj;
+        if(this == NULL){
+            return;
+        }//end if
+        delete(this->toString, this);
+    }//end func
+
+    // toString function
+    void point_toString(Point* this){
+        free(this->toString);
+        this->toString = $("cordinate: ", _(this->x), ", ", _(this->y));
+    }//end func
+
+    // cloning function
     Point* point_clone(Point* toBeClone){
         Point* new = new_Point(toBeClone->x, toBeClone->y);
         return new;
     }//end func
 
-    void point_free(void* this){
-        if(this == NULL){
-            return;
-        }//end if
-        free(this);
-    }//end func
-
+    // function to multiply the cordinate
     void point_multiply(Point* this, int numToMultiply){
         this->x = this->x * numToMultiply;
         this->y = this->y * numToMultiply;
-    }//end func
-);//end class
-
-CLASS(Person, (String name, int age),
-    // dec instance
-    String name;
-    int age;,
-    
-    // construct person
-    CONSTRUCTOR(
-        this->name = name;
-        this->age = age;
-    ),
-
-    // func to free
-    void person_free(void* this){
-        if(this == NULL){return;}
-        free(((Person*)(this))->name);
-        free(this);
+        point_toString(this);
     }//end func
 );//end class
 
 int main(){
-
-    // testing some classes
-    Array* people = new_Array(person_free);
-    array_add(people, new_Person($("Vic"), 12) );
-    array_add(people, new_Person($("Bob"), 15) );
-    for_in(x, people){
-        print( "name ", _(x+1), " is ", ((Person*)(array_getIndexOf(people, x)))->name );
+    
+    Point* cordinate = new_Point(10, 25);
+    print(cordinate->toString);
+    point_multiply(cordinate, 5);
+    print("The new ", cordinate->toString);
+    point_free(cordinate);
+    
+    Array* points = new_Array(point_free);
+    array_addMultiple(points,
+        new_Point(10, 10),
+        new_Point(20, 20),
+        new_Point(30, 30),
+        new_Point(40, 40)
+    );
+    
+    for_in(x, points){
+        Point* currentPoint = array_getIndexOf(points, x);
+        print(currentPoint->toString);
     }//end for
-    array_free(people);
+
+    array_free(points);
+    
+    Map* cars = new_Map(11, string_free);
+    String ferrariKey = $("Ferrari");
+    String hondaKey = $("Honda");
+    
+    // Adding to the map
+    map_add(cars, ferrariKey, $("Price of ", ferrariKey,": $300,000"));
+    map_add(cars, hondaKey, $("Price of ", hondaKey, ": $20,000"));
+    
+    // Get the data by passing the key
+    print(map_get(cars, "Ferrari"));
+    print(map_get(cars, "Honda"));
+
+    map_free(cars);
+    delete(ferrariKey, hondaKey);
+
+    Map* randomString = new_Map(20, string_free);
+    int counter = 0;
+    loop(x, 10){
+        counter++;
+        String countStr = _(counter);
+        randomString->add(randomString, countStr, $("string = ", _(counter)));
+        free(countStr);
+    }
+    counter = 0;
+    for_in(x, randomString){
+        counter++;
+        String tempKey = _(counter);
+        print("result: ", randomString->get(randomString, tempKey));
+        free(tempKey); 
+    }
+    randomString->destroy(randomString);
 
     // garbage collector
     MEM_START;
-        String hello = $("hello"); MEM_ADD(hello);
-        String myName = $("my name is vic"); MEM_ADD(myName);
+        String hello = $("hello"); 
+        String myName = $("my name is vic");
+        String testingMem = $("testing some mem");
+        String testMem2 = $("testing this thing"); 
+        MEM_ADD(hello, myName, testMem2, testingMem);
+        print(hello, " ", myName, " ",testingMem, " ", testMem2);
     MEM_END;
 
-    MEM_START;
-        int num = 0;
-        loop(x, 5){
-            num++;
-            String tempStr = $("index is ", _(num));
-            String tempStr2 = $("the ", tempStr);
-            print(tempStr);
-            // free
-            free(tempStr); free(tempStr2);
-        }//end loop
-    MEM_END;
-
-    // testing classes
-    Point* point = new_Point(10, 10);
-    print("before = ", _(point->x), " ", _(point->y));
-    point_multiply(point, 5);
-    print("after = ", _(point->x), " ", _(point->y));
-    point_free(point);
+    int num = 0;
+    loop(x, 5){
+        num++;
+        String tempStr = $("index is ", _(num));
+        String tempStr2 = $("the ", tempStr);
+        print(tempStr);
+        // free
+        delete(tempStr, tempStr2);
+    }//end loop
 
     //c
     Array* listOfCars = new_Array(string_free);
@@ -165,25 +202,32 @@ int main(){
 
     //***********************************************************array test
 
-    Array* listOfString = new_Array(NULL);
+    // declareing a new object
+    Array* listOfString = new_Array(string_free);
 
-    for_in(x, token){
-        listOfString->add(listOfString, token->list[x]);
+    // to add object to an array
+    array_add(listOfString, $("first string") );
+
+    // to add multiple object to an array
+    array_addMultiple(listOfString,
+        $("second string"),
+        $("third string"),
+        $("fourth string"),
+        $("fith string")
+    );
+
+    // you can also use 'for in' loop but data structure must have length
+    for_in(x, listOfString){
+        String current = array_getIndexOf(listOfString, x);
+        print(current);
     }//end if
 
-    for_in(x, listOfString){
-        print("Array[", _(x), "]: ", listOfString->getIndexOf(listOfString, x));
-    }//end if
-
-    listOfString->removeIndexOf(listOfString, 3);
-    print("List of new array after delete");
-    for_in(x, listOfString){
-        print("Array[", _(x), "]: ", listOfString->getIndexOf(listOfString, x));
-    }//end for
+    // free
+    array_free(listOfString);
 
     //**********************************************************map test
 
-    Map* map = new_Map(50, string_free);
+    Map* map = new_Map(11, string_free);
 
     map->add(map, "one", $("hunny"));
     map->add(map, "two", $("boo boo"));
@@ -219,8 +263,6 @@ int main(){
     free(combineString);
     free(toBeSplit);
     token->destroy(token);
-    listOfString->destroy(listOfString);
-
     //testing class
 
 }//end main

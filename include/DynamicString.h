@@ -56,8 +56,9 @@ __VA_ARGS__, 20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1)\
 #define _num(...) string_numberToString(ARGS(__VA_ARGS__), __VA_ARGS__)
 // other quick preproccessor
 #define print(...) string_print(ARGS(__VA_ARGS__), __VA_ARGS__)
-#define loop(x, num) for(int x=0; x<num; x++)
-#define free( var ) dummy_safeFree( (void*) &var ); var = NULL
+#define loop(x, length) for(int x=0; x<length; x++)
+#define free( var ) free_safe( (void*) &var ); var = NULL
+#define delete(...) free_multiple(ARGS(__VA_ARGS__), __VA_ARGS__)
 // credit for lambda https://blog.noctua-software.com/c-lambda.html
 #define LAMBDA(varfunction) ({ varfunction function;})
 // class preprocessor
@@ -112,7 +113,9 @@ String* string_readFileByChar(String fileName, int* arraySize);
 String dummy_print(void* toBePrinted);
 void dummy_delete(void* toBeDeleted);
 int dummy_compare(const void* first, const void* second);
-void dummy_safeFree(void** toBeFreed);
+// free functions
+void free_safe(void** toBeFreed);
 void free_function(void* toBefreed);
+void free_multiple(unsigned int numOfArg, ...);
 
 #endif

@@ -57,12 +57,7 @@ int main(){
     // String tag returns a dynamic allocated string,
     // Every new string does not have an auto garbage collector _(will be added on future update).
     // Hence, you have to free each dynamic string manually:
-    free(test);
-    free(name);
-    free(addition);
-    free(sayHello);
-    free(sayYourCodeYears);
-    free(sayPiInDecimal);
+    delete(test, name, addition, sayHello, sayYourCodeYears, sayPiInDecimal);
 
     // You can also split string through the token object
     // which split the token into an array of tokens similar to Java:
@@ -86,5 +81,5 @@ int main(){
     token[10]: string*/
 
     free(toBeSplit);
-    token->destroy(token);
+    token_free(token);
 }//end main

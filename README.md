@@ -52,6 +52,9 @@ By default, `runProgram` will be your executable when `make` is invoked on the t
 bin/runProgram
 ```
 
+If you already have a project, you can add the API to your `makefile`.
+Copy and paste the `DynamicString.a` and the header file you want to use to your project.
+
 ## How to Use the Dynamic String API
 
 ### String Usage
@@ -130,25 +133,9 @@ print5: What is the Pi number? 3.14 is the number, duh!
 
 ### Memory Management
 
-Previously this is how we use to code string in C. We had to use an array of chars:
+Previously this is how we use to code string in C. We had to use an array of chars.
 
-```javascript
-// Previously when we use string in C
-char sayYourName[30];
-char name[30]; 
-strcpy(name, "Jeff");
-strcpy(sayYourName, "My name is ");
-strcat(sayYourName, name);
-strcat(sayYourName, ".");
-
-printf("%s\n", sayYourName);
-
-/************ output ************
-My name is Jeff.
-*********************************/
-```
-
-The code above is how we manipulate char array in C, problem with this is that the size is constant and it could not hold string longer than `30`. So what if it happens to be a longer string? 
+The code below is how we manipulate char array in C, problem with this is that the size is constant and it could not hold string longer than `30`. So what if it happens to be a longer string? 
 
 Another way to fix the problem is to create a dynamic char array by mallocing and then reallocing to a bigger size when we need to hold more char. So, we have to keep track of the size and it can be difficult to manage.
 
@@ -192,10 +179,11 @@ My name is Jeff.
 ```
 
 However, since string tag returns a dynamic allocated string,
-every new string that has been created does not have an auto garbage collector.
-Some operating system manages out the memory when its not freed, but it's better to do it manually, so don't forget to free your string!
+every new string that has been created needs to be freed. 
+So don't forget to free your string!
 
 ```javascript
+// if DynamicString.h is used it will assign null after free when using free()
 free(test);
 free(name);
 free(multiply);
@@ -203,6 +191,9 @@ free(sayHello);
 free(toBeAssigned);
 free(sayYourCodeYears);
 free(sayPiInDecimal);
+
+// You can also free multiple variables using delete() functions
+delete(test, name, addition, sayHello, sayYourCodeYears, sayPiInDecimal);
 ```
 
 ## Tokenizer
@@ -211,8 +202,9 @@ You can also split string through the token object
 which split the token into an array of tokens similar to Java:
 
 ```javascript
+// You can use 'split()' or 'new_Token()' to create token object
 String toBeSplit = $("This string is going to be split into array of string");
-Token* token = split(toBeSplit, " ");
+Token* token = new_Token(toBeSplit, " ");
 for(int x=0; x<token->length; x++){
     print("token[", _(x), "]: ", token->list[x]);
 }//end for
@@ -234,3 +226,184 @@ token[10]: string
 free(toBeSplit);
 Token_free(token);
 ```
+
+## Data Structure
+
+The library also contains other data structure such as array, map or linked list.
+It follows a standard to declare and access an object.
+To initialize an object simply declare by: `[objectType]* varName = new_[objectType]()`
+
+Every new object starts with `new_` tag 
+and you can access the object method by: `[objectTypeInLowerCase]_[functionName]()`
+
+### Array
+
+```javascript
+// Declaring a new object. The parameter takes a function of what to free.
+// You can pass in NULL if you don't wont the array data to be freed.
+Array* cars = new_Array(string_free);
+
+// To add object to an array
+array_add(listOfString, $("first string") );
+
+// To add multiple object to an array
+array_addMultiple(listOfString,
+    $("second string"),
+    $("third string"),
+    $("fourth string"),
+    $("fith string")
+);
+
+// You can also use 'for in' loop.
+// But the object struct must have length variable
+// such as map, linked list, and array from the library.
+for_in(x, listOfString){
+    String current = array_getIndexOf(listOfString, x);
+    print(current);
+}//end if
+
+/************ output ************
+first string
+second string
+third string
+fourth string
+fith string
+*********************************/
+
+array_free(listOfString);
+```
+
+### Map
+
+```javascript
+// declaring a new object. The first param set the size of table,
+// if table is maxed out it will automatically resize the table.
+// The second param takes a function of what to free.
+// You can pass in NULL if you don't wont the data to be freed.
+Map* cars = new_Map(11, string_free);
+String ferrariKey = $("Ferrari");
+String hondaKey = $("Honda");
+
+// Adding to the map
+map_add(cars, ferrariKey, $("Price of a ", ferrariKey,": $300,000"));
+map_add(cars, hondaKey, $("Price of a ", hondaKey, ": $20,000"));
+
+// Get the data by passing the key and print to console
+print(map_get(cars, "Ferrari"));
+print(map_get(cars, "Honda"));
+
+/************ output ************
+Price of a Ferrari: $300,000
+Price of a Honda: $20,000
+*********************************/
+
+map_free(cars);
+delete(ferrariKey, hondaKey);
+```
+
+## Other Advance Usage
+
+The DynamicString.h also contain preprocessors of another way to make objects:
+
+```javascript
+
+// Declaring Point object and
+// using the parameter for creating a new object
+CLASS(Point, (long double x, long double y),
+
+    // To declare an instance variable
+    // you must add "," comma at the end.
+    long double x;
+    long double y;
+    String toString,
+
+    // Use "this" to access the instance
+    // variable members in Point construtor.
+    // Don't forget "," comma at the end.
+    CONSTRUCTOR(
+        this->x = x;
+        this->y = y;
+        this->toString = $("cordinate: ", _(this->x), ", ", _(this->y));
+    ),//end constructor
+
+    // function to free object
+    void point_free(void* obj){
+        Point* this = obj;
+        if(this == NULL){
+            return;
+        }//end if
+        delete(this->toString, this);
+    }//end func
+
+    // toString function
+    void point_toString(Point* this){
+        free(this->toString);
+        this->toString = $("cordinate: ", _(this->x), ", ", _(this->y));
+    }//end func
+
+    // cloning function
+    Point* point_clone(Point* toBeClone){
+        Point* new = new_Point(toBeClone->x, toBeClone->y);
+        return new;
+    }//end func
+
+    // function to multiply the cordinate
+    void point_multiply(Point* this, int numToMultiply){
+        this->x = this->x * numToMultiply;
+        this->y = this->y * numToMultiply;
+        point_toString(this);
+    }//end func
+);//end class
+
+```
+
+Usage example 1:
+
+```javascript
+// Declare a new point
+Point* cordinate = new_Point(10, 25);
+print(cordinate->toString);
+
+// Multiply the cordinate by 5
+point_multiply(cordinate, 5);
+print("the new ", cordinate->toString);
+
+/************ output ************
+cordinate: 10, 25
+the new cordinate: 50, 125
+*********************************/
+
+point_free(cordinate);
+```
+
+Usage example 2:
+
+```javascript
+// Declare and put points in the array
+Array* points = new_Array(point_free);
+array_addMultiple(points,
+    new_Point(10, 10),
+    new_Point(20, 20),
+    new_Point(30, 30),
+    new_Point(40, 40)
+);
+
+// Loop and print the points
+for_in(x, points){
+    Point* currentPoint = array_getIndexOf(points, x);
+    print(currentPoint->toString);
+}//end for
+
+/************ output ************
+cordinate: 10, 10
+cordinate: 20, 20
+cordinate: 30, 30
+cordinate: 40, 40
+*********************************/
+
+array_free(points);
+```
+
+
+
+
