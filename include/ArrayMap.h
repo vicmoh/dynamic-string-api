@@ -21,7 +21,7 @@
 #include <stdarg.h>
 
 /**********************************************************
- * Function Definition
+ * function definition
  **********************************************************/
 
 // 20 param preprocessor
@@ -40,7 +40,7 @@ __VA_ARGS__, 20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1)\
 #define M( var ) MEM_ADD( var )
 
 /**********************************************************
- * Array Class
+ * array class
  **********************************************************/
 
 typedef struct{
@@ -51,19 +51,19 @@ typedef struct{
 typedef struct ArrayClass{
     unsigned int length;
     ArrayIndex* index;
-    void (*deleteFunction)(void *);
+    void (*deleteFunction)(void* toBeFreed);
     // methods
     void (*add)(struct ArrayClass*, void* toBeAdded);
     void* (*getIndexOf)(struct ArrayClass* object, int theIndex);
-    void* (*removeIndexOf)(struct ArrayClass* object, int theIndex);
+    void (*removeIndexOf)(struct ArrayClass* object, int theIndex);
     void (*destroy)(void* object);
 }Array;
 
 Array* _GARBAGE_COLLECTOR_;
 
 // construtor
-Array* new_Array(void (*deleteFunction)(void *));
-// functions
+Array* new_Array(void (*deleteFunction)(void* toBeFreed));
+// getter and setter
 void array_add(Array* object, void* toBeAdded);
 void* array_getIndexOf(Array* object, int index);
 void array_removeIndexOf(Array* object, int index);
@@ -71,7 +71,7 @@ void array_removeIndexOf(Array* object, int index);
 void array_free(void* ArrayObjectToBeFreed);
 
 /**********************************************************
- * Map Class
+ * map class
  **********************************************************/
 
 typedef struct MapDataClass{
@@ -95,12 +95,15 @@ typedef struct MapClass{
 // constructor
 Map* new_Map(unsigned int tableSize, void (*deleteFunction)(void* deleteFunction));
 MapData* map_initData(char* key, void* data);
+// getter and setter
 void map_add(Map* object, char* key, void* dataToBeAdded);
 void array_addMultipleData(Array* object, unsigned int numOfArg, ... );
 void* map_get(Map* object, char* key);
+// funtions
 unsigned long map_hashDJB(const char* string, unsigned int tableSize);
 int map_isPrime(const int toBeChecked);
 int map_nextPrime(int number);
+// free function
 void map_free(void* toBeFreed);
 void map_freeMapData(void* toBeFreed);
 void garabage_freeFunction(void* toBeDeleted);

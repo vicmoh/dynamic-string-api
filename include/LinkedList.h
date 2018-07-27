@@ -20,7 +20,7 @@
 #include <stdarg.h>
 
 /**********************************************************
- * Object Struct
+ * object struct
  **********************************************************/
 
 typedef struct listNode{
@@ -59,7 +59,7 @@ typedef struct ListClass{
 } List;
 
 /**********************************************************
- * List Function
+ * list function
  **********************************************************/
 
 // list constructor

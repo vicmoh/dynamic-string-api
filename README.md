@@ -307,52 +307,51 @@ The DynamicString.h also contain preprocessors of another way to make objects:
 
 ```javascript
 
-// Declaring Point object and
-// using the parameter for creating a new object
-CLASS(Point, (long double x, long double y),
-
-    // To declare an instance variable
-    // you must add "," comma at the end.
+CLASS(Point,
+    // To declare a instance variable
+    // you must add "," comma at the end
     long double x;
     long double y;
     String toString,
 
-    // Use "this" to access the instance
-    // variable members in Point construtor.
-    // Don't forget "," comma at the end.
-    CONSTRUCTOR(
+    // Use "this" to access the instance in constructor 
+    // don't forget "," comma at the end
+    CONSTRUCTOR(Point, (long double x, long double y),
         this->x = x;
         this->y = y;
-        this->toString = $("cordinate: ", _(this->x), ", ", _(this->y));
+        this->toString = $("");
     ),//end constructor
 
-    // function to free object
+    // Destructor function
     void point_free(void* obj){
         Point* this = obj;
-        if(this == NULL){
-            return;
-        }//end if
+        if(this == NULL) return;
         delete(this->toString, this);
     }//end func
 
-    // toString function
-    void point_toString(Point* this){
+    // Function that return string for point
+    String point_toString(Point* this){
         free(this->toString);
         this->toString = $("cordinate: ", _(this->x), ", ", _(this->y));
+        return this->toString;
     }//end func
 
-    // cloning function
-    Point* point_clone(Point* toBeClone){
-        Point* new = new_Point(toBeClone->x, toBeClone->y);
-        return new;
+    // Getter function of instance x
+    int point_getX(Point* this){
+        return this->x;
     }//end func
 
-    // function to multiply the cordinate
-    void point_multiply(Point* this, int numToMultiply){
-        this->x = this->x * numToMultiply;
-        this->y = this->y * numToMultiply;
-        point_toString(this);
+    // Getter function of instance y
+    int point_getY(Point* this){
+        return this->y;
     }//end func
+
+    // Setter function that multiply the position value
+    void point_multiplier(Point* this, int multiplier){
+        this->x = this->x * multiplier;
+        this->y = this->y * multiplier;
+    }//end func
+
 );//end class
 
 ```
@@ -360,45 +359,50 @@ CLASS(Point, (long double x, long double y),
 Usage example 1:
 
 ```javascript
-// Declare a new point
-Point* cordinate = new_Point(10, 25);
-print(cordinate->toString);
+// To declare point object
+Point* position = new_Point(10, 15);
+print(point_toString(position));
 
-// Multiply the cordinate by 5
-point_multiply(cordinate, 5);
-print("the new ", cordinate->toString);
+// Multiply the point value by 2
+point_multiplier(position, 2);
+print(
+    "the new for x value is ", 
+    _(point_getX(position)),
+    "\nand the new for y value is ", 
+    _(point_getY(position)) 
+);
 
 /************ output ************
-cordinate: 10, 25
-the new cordinate: 50, 125
+position: 10, 15
+the new for x value is 20
+and the new for y value is 30
 *********************************/
 
-point_free(cordinate);
+point_free(position);
 ```
 
 Usage example 2:
 
 ```javascript
-// Declare and put points in the array
+// Add multipler points to the array
 Array* points = new_Array(point_free);
-array_addMultiple(points,
+array_addMultiple(points, 
     new_Point(10, 10),
     new_Point(20, 20),
     new_Point(30, 30),
     new_Point(40, 40)
 );
 
-// Loop and print the points
+// Loop the array and print the point object
 for_in(x, points){
-    Point* currentPoint = array_getIndexOf(points, x);
-    print(currentPoint->toString);
+    print(point_toString(array_getIndexOf(points, x)));
 }//end for
 
 /************ output ************
-cordinate: 10, 10
-cordinate: 20, 20
-cordinate: 30, 30
-cordinate: 40, 40
+position: 10, 10
+position: 20, 20
+position: 30, 30
+position: 40, 40
 *********************************/
 
 array_free(points);

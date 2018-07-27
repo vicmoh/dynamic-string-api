@@ -34,14 +34,14 @@
 #define CHECK if(DEBUG_SETTING)printf("CHECK\n")
 
 /**********************************************************
- * Preprocessor
+ * preprocessor
  **********************************************************/
 
 // 20 param preprocessor
 #define ARGS_SEQUENCE(_1,_2,_3,_4,_5,_6,_7,_8,_9,_10,_11,_12,_13,_14,_15,_16,_17,_18,_19,_20,N,...) N
 #define ARGS(...) ARGS_SEQUENCE(\
 __VA_ARGS__, 20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1)\
-// try catch
+// try catch, doesn't always work
 #define TRY do{ jmp_buf ex_buf__; if( !setjmp(ex_buf__) ){
 #define CATCH } else {
 #define ENDTRY } }while(0)
@@ -54,35 +54,30 @@ __VA_ARGS__, 20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1)\
 #define _ string_numberToStringInt
 #define _dec string_numberToStringDecimal
 #define _num(...) string_numberToString(ARGS(__VA_ARGS__), __VA_ARGS__)
-// other quick preproccessor
+// other speical quick preproccessor. [free_safe( (void*) &var );]
+#define new( obj ) malloc(sizeof(obj))
 #define print(...) string_print(ARGS(__VA_ARGS__), __VA_ARGS__)
 #define loop(x, length) for(int x=0; x<length; x++)
-#define free( var ) free_safe( (void*) &var ); var = NULL
+#define free( var ) free( var ); var = NULL
 #define delete(...) free_multiple(ARGS(__VA_ARGS__), __VA_ARGS__)
 // credit for lambda https://blog.noctua-software.com/c-lambda.html
 #define LAMBDA(varfunction) ({ varfunction function;})
 // class preprocessor
-#define FUNCTION( name, param ) name
-#define CONSTRUCTOR_MALLOC(className) className* this = malloc(sizeof(className));
-#define CONSTRUCTOR( code ) code
-#define CLASS_( className, param, constructor, function) \
-className* new_##className param{\
-    CONSTRUCTOR_MALLOC(className)\
-    constructor\
-    return this;\
-} function
-#define CLASS( className, param, instance, constructor, function) \
-typedef struct{\
-    instance;\
-} className;\
-className* new_##className param{\
-    CONSTRUCTOR_MALLOC(className)\
-    constructor\
-    return this;\
-} function
+#define CONSTRUCTOR( object, param, code ) \
+object* new_##object param{ \
+    object* this = new (object); \
+    code \
+    return this; \
+}
+#define CLASS( object, instance, constructor, function) \
+typedef struct{ \
+    instance; \
+} object; \
+function \
+constructor
 
 /**********************************************************
- * String Function
+ * string function
  **********************************************************/
 
 // string constructor, which returns dynamic strings
@@ -101,7 +96,7 @@ String string_setString(String toBeSet);
 void string_setLowerCase(String toBeSet);
 void string_setUpperCase(String toBeSet);
 void string_setNoWhiteSpace(String toBeSet); 
-void string_setSlice(String toBeSliced, unsigned int startIndexToKeep, unsigned int endIndexToKeep);
+void string_slice(String toBeSliced, unsigned int startIndexToKeep, unsigned int endIndexToKeep);
 // void funtions
 void string_print(unsigned int numOfArg, ...);
 void string_freeStringArray(String* array, int arraySize);

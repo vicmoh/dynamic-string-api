@@ -20,7 +20,7 @@
 #include <stdarg.h>
 
 /**********************************************************
- * Object Struct
+ * object struct
  **********************************************************/
 
 typedef struct TokenClass{
@@ -33,13 +33,13 @@ typedef struct TokenClass{
 }Token;
 
 /**********************************************************
- * Function Definition
+ * other function definition
  **********************************************************/
 
 #define split new_Token
 
 /**********************************************************
- * Token Function
+ * token function
  **********************************************************/
 
 // constructor
