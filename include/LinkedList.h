@@ -37,25 +37,9 @@ typedef struct ListClass{
     Node* head;
     Node* tail;
     int length;
-    void (*deleteData)(void* toBeDeleted);
-    int (*compare)(const void* first,const void* second);
-    char* (*printData)(void* toBePrinted);
-    // methods
-    void (*insertFront)(struct ListClass* list, void* toBeAdded);
-    void (*insertBack)(struct ListClass* list, void* toBeAdded);
-    void (*insertSorted)(struct ListClass* list, void* toBeAdded);
-    void (*destroy)(struct ListClass* list);
-    void* (*deleteDataFromList)(struct ListClass* list, void* toBeDeleted);
-    void* (*pop)(struct ListClass* list);
-    void* (*getFromFront)(struct ListClass list);
-    void* (*getFromBack)(struct ListClass list);
-    void* (*findElement)(struct ListClass list, bool (*customCompare)(const void* first,const void* second), const void* searchRecord);
-    int (*getLength)(struct ListClass list);
-    char* (*toString)(struct ListClass list);
-    ListIterator (*createIterator)(struct ListClass list);
-    ListIterator (*createBackIterator)(struct ListClass list);
-    void* (*nextElement)(struct ListIteratorClass* iter);
-    void* (*prevElement)(struct ListIteratorClass* iter);
+    void (*deleteData)();
+    int (*compare)();
+    char* (*printData)();
 } List;
 
 /**********************************************************
@@ -63,7 +47,7 @@ typedef struct ListClass{
  **********************************************************/
 
 // list constructor
-List* new_List(char* (*printFunction)(void* toBePrinted),void (*deleteFunction)(void* toBeDeleted),int (*compareFunction)(const void* first,const void* second));
+List* new_List(char* (*printFunction)(),void (*deleteFunction)(),int (*compareFunction)());
 Node* list_newNode(void* data);
 // insert function
 void list_insertFront(List* list, void* toBeAdded);

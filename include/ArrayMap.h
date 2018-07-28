@@ -17,8 +17,8 @@
 #include <string.h>
 #include <ctype.h>
 #include <malloc.h>
-#include <math.h>
 #include <stdarg.h>
+#include <math.h>
 
 /**********************************************************
  * function definition
@@ -33,7 +33,7 @@ __VA_ARGS__, 20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1)\
 // functions
 #define array_addMultiple( obj, ...) array_addMultipleData(obj, ARGS(__VA_ARGS__), __VA_ARGS__)
 // garbage collector 
-#define MEM_START _GARBAGE_COLLECTOR_ = new_Array(garabage_freeFunction)
+#define MEM_START _GARBAGE_COLLECTOR_ = new_Array(free)
 #define MEM( var ) array_add(_GARBAGE_COLLECTOR_, var)
 #define MEM_ADD(...) array_addMultipleData( _GARBAGE_COLLECTOR_ , ARGS(__VA_ARGS__), __VA_ARGS__)
 #define MEM_END array_free(_GARBAGE_COLLECTOR_)
@@ -51,18 +51,13 @@ typedef struct{
 typedef struct ArrayClass{
     unsigned int length;
     ArrayIndex* index;
-    void (*deleteFunction)(void* toBeFreed);
-    // methods
-    void (*add)(struct ArrayClass*, void* toBeAdded);
-    void* (*getIndexOf)(struct ArrayClass* object, int theIndex);
-    void (*removeIndexOf)(struct ArrayClass* object, int theIndex);
-    void (*destroy)(void* object);
+    void (*deleteFunction)();
 }Array;
 
 Array* _GARBAGE_COLLECTOR_;
 
 // construtor
-Array* new_Array(void (*deleteFunction)(void* toBeFreed));
+Array* new_Array(void (*deleteFunction)());
 // getter and setter
 void array_add(Array* object, void* toBeAdded);
 void* array_getIndexOf(Array* object, int index);
@@ -86,14 +81,10 @@ typedef struct MapClass{
     void (*deleteFunction)(void*);
     Array* list;
     unsigned int length;
-    // func
-    void (*add)(struct MapClass* object, char* key, void* dataToBeAdded);
-    void* (*get)(struct MapClass* object, char* key);
-    void (*destroy)(void* mapToBeFreed);
 }Map;
 
 // constructor
-Map* new_Map(unsigned int tableSize, void (*deleteFunction)(void* deleteFunction));
+Map* new_Map(void (*deleteFunction)());
 MapData* map_initData(char* key, void* data);
 // getter and setter
 void map_add(Map* object, char* key, void* dataToBeAdded);
@@ -106,6 +97,5 @@ int map_nextPrime(int number);
 // free function
 void map_free(void* toBeFreed);
 void map_freeMapData(void* toBeFreed);
-void garabage_freeFunction(void* toBeDeleted);
 
 #endif

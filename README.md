@@ -276,11 +276,9 @@ array_free(listOfString);
 ### Map
 
 ```javascript
-// Declaring a new object. The first param set the size of table,
-// if table is maxed out it will automatically resize the table.
-// The second param takes a function of what to free.
+// Declaring a new object. The param takes a function of what to free.
 // You can pass in NULL if you don't wont the data to be freed.
-Map* cars = new_Map(11, string_free);
+Map* cars = new_Map(string_free);
 String ferrariKey = $("Ferrari");
 String hondaKey = $("Honda");
 

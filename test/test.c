@@ -24,8 +24,8 @@ CLASS(Point,
         this->toString = $("");
     ),//end constructor
 
-    void point_free(void* obj){
-        Point* this = obj;
+    void point_free(Point* this){
+        // Point* this = obj;
         if(this == NULL) return;
         delete(this->toString, this);
     }//end func
@@ -66,6 +66,16 @@ int main(){
 
     point_free(position);
 
+    Array* testing = new_Array(free);
+    array_addMultiple(testing, 
+        $("first"),
+        $("second"),
+        $("third"),
+        $("fourth")
+    );
+
+    array_free(testing);
+
     // Add multipler points to the array
     Array* points = new_Array(point_free);
     array_addMultiple(points, 
@@ -80,9 +90,11 @@ int main(){
         print(point_toString(array_getIndexOf(points, x)));
     }//end for
 
+    print("the array size is ", _(getLength(points)));
+
     array_free(points);
     
-    Map* cars = new_Map(11, string_free);
+    Map* cars = new_Map(string_free);
     String ferrariKey = $("Ferrari");
     String hondaKey = $("Honda");
     
@@ -97,22 +109,22 @@ int main(){
     map_free(cars);
     delete(ferrariKey, hondaKey);
 
-    Map* randomString = new_Map(20, string_free);
+    Map* randomString = new_Map(string_free);
     int counter = 0;
     loop(x, 10){
         counter++;
         String countStr = _(counter);
-        randomString->add(randomString, countStr, $("string = ", _(counter)));
+        map_add(randomString, countStr, $("string = ", _(counter)));
         free(countStr);
     }
     counter = 0;
     for_in(x, randomString){
         counter++;
         String tempKey = _(counter);
-        print("result: ", randomString->get(randomString, tempKey));
+        print("result: ", map_get(randomString, tempKey));
         free(tempKey); 
     }
-    randomString->destroy(randomString);
+    map_free(randomString);
 
     // garbage collector
     MEM_START;
@@ -136,16 +148,16 @@ int main(){
 
     //c
     Array* listOfCars = new_Array(string_free);
-    listOfCars->add(listOfCars, $("Lambo"));
-    listOfCars->add(listOfCars, $("Honda"));
+    array_add(listOfCars, $("Lambo"));
+    array_add(listOfCars, $("Honda"));
 
     // java
     // Array listOfCars = new Array();
     // listOfCars.add("Lambo");
     // listOfCars.add("Honda");
 
-    print("car is ", listOfCars->getIndexOf(listOfCars, 1));
-    listOfCars->destroy(listOfCars);
+    print("car is ", array_getIndexOf(listOfCars, 1));
+    array_free(listOfCars);
     //******************************************* testing string tag
 
     String test = $("Hello world!");
@@ -192,16 +204,15 @@ int main(){
     String toBeSplit = $("This string is going to be split into array of string");
     Token* token = new_Token(toBeSplit, " ");
     for(int x=0; x<token->length; x++){
-        print("token[", _(x), "]: ", token->list[x]);
+        print("token[", _(x), "]: ", token_getTokenAt(token, x));
     }//end for
 
-    String combineString = token->combine(token, 3, 6);
-    print("outputing 3 and 6 = (", combineString, ")");
+    print("outputing 3 and 6 = (", token_combine(token, 3, 6), ")");
 
-    int indexSearch = token->search(token, "going", true);
+    int indexSearch = token_search(token, "going", true);
     print("the index token is ", _(indexSearch));
 
-    indexSearch = token->search(token, "string", false);
+    indexSearch = token_search(token, "string", false);
     print("found ", _(indexSearch), " with the name string");
 
 
@@ -232,42 +243,41 @@ int main(){
 
     //**********************************************************map test
 
-    Map* map = new_Map(11, string_free);
+    Map* map = new_Map(string_free);
 
-    map->add(map, "one", $("hunny"));
-    map->add(map, "two", $("boo boo"));
-    map->add(map, "three", $("yee"));
-    map->add(map, "four", $("okay"));
-    map->add(map, "five", $("dude"));
-    map->add(map, "six", $("sup"));
-    map->add(map, "seven", $("keep"));
-    map->add(map, "eight", $("goin"));
-    map->add(map, "nine", $("please"));
-    map->add(map, "ten", $("stop")); 
-    map->add(map, "eleven", $("wow"));
-    map->add(map, "twelve", $("nah"));
-    map->add(map, "thirteen", $("im"));
-    map->add(map, "fourteen", $("done"));
+    map_add(map, "one", $("hunny"));
+    map_add(map, "two", $("boo boo"));
+    map_add(map, "three", $("yee"));
+    map_add(map, "four", $("okay"));
+    map_add(map, "five", $("dude"));
+    map_add(map, "six", $("sup"));
+    map_add(map, "seven", $("keep"));
+    map_add(map, "eight", $("goin"));
+    map_add(map, "nine", $("please"));
+    map_add(map, "ten", $("stop")); 
+    map_add(map, "eleven", $("wow"));
+    map_add(map, "twelve", $("nah"));
+    map_add(map, "thirteen", $("im"));
+    map_add(map, "fourteen", $("done"));
     
-    print("one = ", map->get(map, "one"));
-    print("two = ", map->get(map, "two"));
-    print("three = ", map->get(map, "three"));
-    print("four = ", map->get(map, "four"));
-    print("five = ", map->get(map, "five"));
-    print("six = ", map->get(map, "six"));
-    print("seven = ", map->get(map, "seven"));
-    print("eight = ", map->get(map, "eight"));
-    print("nine = ", map->get(map, "nine"));
-    print("ten = ", map->get(map, "ten"));
-    print("nine = ", map->get(map, "eleven"));
-    print("ten = ", map->get(map, "twelve"));
-    print("thirteen = ", map->get(map, "thirteen"));
-    print("fourteen = ", map->get(map, "fourteen"));
+    print("one = ", map_get(map, "one"));
+    print("two = ", map_get(map, "two"));
+    print("three = ", map_get(map, "three"));
+    print("four = ", map_get(map, "four"));
+    print("five = ", map_get(map, "five"));
+    print("six = ", map_get(map, "six"));
+    print("seven = ", map_get(map, "seven"));
+    print("eight = ", map_get(map, "eight"));
+    print("nine = ", map_get(map, "nine"));
+    print("ten = ", map_get(map, "ten"));
+    print("nine = ", map_get(map, "eleven"));
+    print("ten = ", map_get(map, "twelve"));
+    print("thirteen = ", map_get(map, "thirteen"));
+    print("fourteen = ", map_get(map, "fourteen"));
 
-    map->destroy(map);
-    free(combineString);
+    map_free(map);
     free(toBeSplit);
-    token->destroy(token);
+    token_free(token);
     //testing class
 
 }//end main

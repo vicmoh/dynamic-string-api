@@ -25,11 +25,8 @@
 
 typedef struct TokenClass{
     char** list;
+    char* garbageString;
     unsigned int length;
-    // methods
-    char* (*combine)(struct TokenClass*, unsigned int tokenStart, unsigned int tokenEnd);
-    int (*search)(struct TokenClass*, const char* stringToBeSearched, bool trueIfIndexSearch_falseIfCounting);
-    void (*destroy)(void* tokenObjectToBeFreed);
 }Token;
 
 /**********************************************************
@@ -45,6 +42,7 @@ typedef struct TokenClass{
 // constructor
 Token* new_Token(char* stringToBeSplit, const char* delimiter);
 // getter functions
+char* token_getTokenAt(Token* this, int position);
 char* token_combine(Token* token, unsigned int tokenStart, int unsigned tokenEnd);
 int token_search(Token* token, const char* stringToBeSearched, bool trueIfIndexSearch_falseIfCounting);
 // void functions

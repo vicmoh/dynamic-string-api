@@ -63,6 +63,8 @@ __VA_ARGS__, 20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1)\
 // credit for lambda https://blog.noctua-software.com/c-lambda.html
 #define LAMBDA(varfunction) ({ varfunction function;})
 // class preprocessor
+#define OBJECT void* _this
+#define THIS( object ) object* this = _this
 #define CONSTRUCTOR( object, param, code ) \
 object* new_##object param{ \
     object* this = new (object); \
@@ -75,6 +77,18 @@ typedef struct{ \
 } object; \
 function \
 constructor
+
+/**********************************************************
+ * super class for any object
+ **********************************************************/
+
+typedef struct{
+    unsigned int length;
+}SuperClass;
+
+// get length of any object that has a length
+// such as array, map. and linked list library.
+unsigned int getLength(void* anyObjectWithLength);
 
 /**********************************************************
  * string function
@@ -92,7 +106,7 @@ bool string_isEqual(String string1, String string2, bool isIgnoreCase);
 bool string_isNumberFormat(const String toBeChecked);
 bool string_isEmailFormat(String toBeChecked);
 // setter function
-String string_setString(String toBeSet);
+String string_clone(String toBeSet);
 void string_setLowerCase(String toBeSet);
 void string_setUpperCase(String toBeSet);
 void string_setNoWhiteSpace(String toBeSet); 
