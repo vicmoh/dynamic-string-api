@@ -194,6 +194,7 @@ free(sayPiInDecimal);
 
 // You can also free multiple variables using delete() functions
 delete(test, name, addition, sayHello, sayYourCodeYears, sayPiInDecimal);
+
 ```
 
 ## Tokenizer
@@ -206,7 +207,7 @@ which split the token into an array of tokens similar to Java:
 String toBeSplit = $("This string is going to be split into array of string");
 Token* token = new_Token(toBeSplit, " ");
 for(int x=0; x<token->length; x++){
-    print("token[", _(x), "]: ", token->list[x]);
+    print("token[",_(x),"]: ", token_getTokenAt(toBeSplit, x));
 }//end for
 
 /************ output ************
@@ -223,7 +224,7 @@ token[9]: of
 token[10]: string
 *********************************/
 
-free(toBeSplit);
+delete(toBeSplit);
 Token_free(token);
 ```
 
@@ -258,7 +259,7 @@ array_addMultiple(listOfString,
 // But the object struct must have length variable
 // such as map, linked list, and array from the library.
 for_in(x, listOfString){
-    String current = array_getIndexOf(listOfString, x);
+    String current = array_get(listOfString, x);
     print(current);
 }//end if
 
@@ -393,7 +394,7 @@ array_addMultiple(points,
 
 // Loop the array and print the point object
 for_in(x, points){
-    print(point_toString(array_getIndexOf(points, x)));
+    print(point_toString(array_get(points, x)));
 }//end for
 
 /************ output ************

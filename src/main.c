@@ -58,27 +58,49 @@ int main(){
     // Hence, you have to free each dynamic string manually:
     delete(test, name, addition, sayHello, sayYourCodeYears, sayPiInDecimal);
 
+
+    /******************** ARRAY ********************/
+    // API also includes data structure such as map, array, and linked list:
+    Array* strings = new_Array(string_free);
+    array_addMultiple(strings, 
+        $("first string"),
+        $("second string"),
+        $("third string"),
+        $("fourth string")
+    );
+    // you can also use for in loop for map, array or linked list
+    print("\n---------- Array Output ----------");
+    for_in(x, strings){
+        print("Index[",_(x),"]: ", array_get(strings, x));   
+    }//end for
+
+
+    /******************** MAP ********************/
+    Map* cars = new_Map(string_free);
+    String ferrariKey = $("Ferrari");
+    String hondaKey = $("Honda");
+    // Adding to the map
+    map_add(cars, ferrariKey, $("Price of ", ferrariKey,": $300,000"));
+    map_add(cars, hondaKey, $("Price of ", hondaKey, ": $20,000"));
+    // Get the data by passing the key
+    print("\n---------- Map Ouput ----------");
+    print(map_get(cars, "Ferrari"));
+    print(map_get(cars, "Honda"));
+
+
+    /******************** TOKENIZER ********************/
     // You can also split string through the token object
     // which split the token into an array of tokens similar to Java:
     String toBeSplit = $("This string is going to be split into array of string");
-    Token* token = split(toBeSplit, " ");
-    for(int x=0; x<token->length; x++){
-        print("token[", _(x), "]: ", token->list[x]);
+    Token* token = new_Token(toBeSplit, " ");
+    print("\n---------- Token Ouput ----------");
+    for_in(x, token){
+        print("token[",_(x),"]: ", token_getTokenAt(token, x));
     }//end for
 
-    /* the output will be:
-    token[0]: This
-    token[1]: string
-    token[2]: is
-    token[3]: going
-    token[4]: to
-    token[5]: be
-    token[6]: split
-    token[7]: into
-    token[8]: array
-    token[9]: of
-    token[10]: string*/
 
-    free(toBeSplit);
+    delete(toBeSplit, ferrariKey, hondaKey);
+    map_free(cars);
     token_free(token);
+    array_free(strings);
 }//end main

@@ -65,8 +65,9 @@ Array* _GARBAGE_COLLECTOR_;
 Array* new_Array(void (*deleteFunction)());
 // getter and setter
 void array_add(Array* object, void* toBeAdded);
-void* array_getIndexOf(Array* object, int index);
-void array_removeIndexOf(Array* object, int index);
+void array_addMultipleData(Array* object, unsigned int numOfArg, ... );
+void* array_get(Array* object, int index);
+void array_remove(Array* object, int index);
 // free
 void array_free(void* ArrayObjectToBeFreed);
 
@@ -77,8 +78,8 @@ void array_free(void* ArrayObjectToBeFreed);
 typedef struct MapClass{
     unsigned int tableSize;
     ArrayMapData** table;
-    void (*deleteFunction)(void*);
-    Array* list;
+    void (*deleteFunction)();
+    Array* array;
     unsigned int length;
 }Map;
 
@@ -86,13 +87,13 @@ typedef struct MapClass{
 Map* new_Map(void (*deleteFunction)());
 // getter and setter
 void map_add(Map* object, char* key, void* dataToBeAdded);
-void array_addMultipleData(Array* object, unsigned int numOfArg, ... );
 void* map_get(Map* object, char* key);
+void map_remove(Map* object, char* key);
+void* map_iterator(Map* object, int index);
 // funtions
 int map_isPrime(const int toBeChecked);
 int map_nextPrime(int number);
 // free function
 void map_free(void* toBeFreed);
-void map_freeMapData(void* toBeFreed);
 
 #endif

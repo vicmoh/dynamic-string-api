@@ -48,6 +48,7 @@ __VA_ARGS__, 20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1)\
 #define ENDTRY } }while(0)
 #define THROW longjmp(ex_buf__, 1)
 // string preprocessor
+#define Number long double*
 #define String char* 
 #define $(...) new_String(ARGS(__VA_ARGS__), __VA_ARGS__)
 #define $$( var ) string_advanceFree( (void*) &var ); var
@@ -78,18 +79,6 @@ typedef struct{ \
 } object; \
 function \
 constructor
-
-/**********************************************************
- * super class for any object
- **********************************************************/
-
-typedef struct{
-    unsigned int length;
-}SuperClass;
-
-// get length of any object that has a length
-// such as array, map. and linked list library.
-unsigned int getLength(void* anyObjectWithLength);
 
 /**********************************************************
  * string function
@@ -127,5 +116,11 @@ int dummy_compare(const void* first, const void* second);
 void free_safe(void** toBeFreed);
 void free_function(void* toBefreed);
 void free_multiple(unsigned int numOfArg, ...);
+
+/**********************************************************
+ * number function
+ **********************************************************/
+
+Number new_Number(const long double newNumber);
 
 #endif
