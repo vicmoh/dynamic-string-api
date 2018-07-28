@@ -66,9 +66,9 @@ int main(){
     // Setter function to multiply the point value
     point_multiplier(position, 2);
     print(
-        "the new for x value is ", 
+        "the new x value is ", 
         _(point_getX(position)),
-        "\nand the new for y value is ", 
+        "\nand the new y value is ", 
         _(point_getY(position)) 
     );
 

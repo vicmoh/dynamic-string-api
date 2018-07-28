@@ -364,16 +364,16 @@ print(point_toString(position));
 // Multiply the point value by 2
 point_multiplier(position, 2);
 print(
-    "the new for x value is ", 
+    "the new x value is ", 
     _(point_getX(position)),
-    "\nand the new for y value is ", 
+    "\nand the new y value is ", 
     _(point_getY(position)) 
 );
 
 /************ output ************
 position: 10, 15
-the new for x value is 20
-and the new for y value is 30
+the new x value is 20
+and the new y value is 30
 *********************************/
 
 point_free(position);
