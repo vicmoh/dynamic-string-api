@@ -9,6 +9,7 @@
 #define _TOKENIZER_H_
 
 // include libraries
+#include <assert.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
