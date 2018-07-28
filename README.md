@@ -306,7 +306,7 @@ The DynamicString.h also contain preprocessors of another way to make objects:
 ```javascript
 
 CLASS(Point,
-    // To declare a instance variable
+    // To declare instance variables
     // you must add "," comma at the end
     long double x;
     long double y;
