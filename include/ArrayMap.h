@@ -40,17 +40,21 @@ __VA_ARGS__, 20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1)\
 #define M( var ) MEM_ADD( var )
 
 /**********************************************************
- * array class
+ * struct data for array and map
  **********************************************************/
 
 typedef struct{
     void* data;
-    char tag[256];
-}ArrayIndex;
+    char key[256];
+}ArrayMapData;
+
+/**********************************************************
+ * array class
+ **********************************************************/
 
 typedef struct ArrayClass{
     unsigned int length;
-    ArrayIndex* index;
+    ArrayMapData* index;
     void (*deleteFunction)();
 }Array;
 
@@ -69,15 +73,9 @@ void array_free(void* ArrayObjectToBeFreed);
  * map class
  **********************************************************/
 
-typedef struct MapDataClass{
-    void* data;
-    char key[256];
-    struct MapDataClass* next;
-}MapData;
-
 typedef struct MapClass{
     unsigned int tableSize;
-    MapData** table;
+    ArrayMapData** table;
     void (*deleteFunction)(void*);
     Array* list;
     unsigned int length;
@@ -85,13 +83,11 @@ typedef struct MapClass{
 
 // constructor
 Map* new_Map(void (*deleteFunction)());
-MapData* map_initData(char* key, void* data);
 // getter and setter
 void map_add(Map* object, char* key, void* dataToBeAdded);
 void array_addMultipleData(Array* object, unsigned int numOfArg, ... );
 void* map_get(Map* object, char* key);
 // funtions
-unsigned long map_hashDJB(const char* string, unsigned int tableSize);
 int map_isPrime(const int toBeChecked);
 int map_nextPrime(int number);
 // free function

@@ -25,8 +25,9 @@
 
 typedef struct TokenClass{
     char** list;
-    char* garbageString;
     unsigned int length;
+    // private variables
+    void* _private_;
 }Token;
 
 /**********************************************************
@@ -41,11 +42,15 @@ typedef struct TokenClass{
 
 // constructor
 Token* new_Token(char* stringToBeSplit, const char* delimiter);
-// getter functions
+// functions returns a non dyanmic string,
+// the returned string will be freed when token_free is invoked
+// so you must copy the string when you want to edit using string tag
+// example: String variable = $(tokenGetTokenAt(object, 2));
 char* token_getTokenAt(Token* this, int position);
 char* token_combine(Token* token, unsigned int tokenStart, int unsigned tokenEnd);
+// function to search the index or total same value
 int token_search(Token* token, const char* stringToBeSearched, bool trueIfIndexSearch_falseIfCounting);
-// void functions
+// free function
 void token_free(void* tokenObjectToBeFreed);
 
 #endif

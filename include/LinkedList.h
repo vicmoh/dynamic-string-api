@@ -27,15 +27,15 @@ typedef struct listNode{
     void* data;
     struct listNode* previous;
     struct listNode* next;
-} Node;
+} ListNode;
 
 typedef struct ListIteratorClass{
-	Node* current;
+	ListNode* current;
 } ListIterator;
 
 typedef struct ListClass{
-    Node* head;
-    Node* tail;
+    ListNode* head;
+    ListNode* tail;
     int length;
     void (*deleteData)();
     int (*compare)();
@@ -48,7 +48,7 @@ typedef struct ListClass{
 
 // list constructor
 List* new_List(char* (*printFunction)(),void (*deleteFunction)(),int (*compareFunction)());
-Node* list_newNode(void* data);
+ListNode* list_newNode(void* data);
 // insert function
 void list_insertFront(List* list, void* toBeAdded);
 void list_insertBack(List* list, void* toBeAdded);

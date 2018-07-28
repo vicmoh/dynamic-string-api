@@ -52,6 +52,14 @@ CLASS(Point,
 );//end class
 
 int main(){
+    
+    Map* testingSameKey = new_Map(string_free);
+    map_add(testingSameKey, "bobs", $("send boby"));
+    print("first: ", map_get(testingSameKey, "bobs"));
+    map_add(testingSameKey, "bobs", $("it works!"));
+    print("second: ", map_get(testingSameKey, "bobs"));
+    map_free(testingSameKey);
+
     // To declare point object
     Point* position = new_Point(10, 15);
     print(point_toString(position));
