@@ -296,8 +296,8 @@ Price of a Ferrari: $300,000
 Price of a Honda: $20,000
 *********************************/
 
-map_free(cars);
 delete(ferrariKey, hondaKey);
+map_free(cars);
 ```
 
 ## Other Advance Usage
