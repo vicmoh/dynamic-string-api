@@ -68,6 +68,11 @@ void array_add(Array* object, void* toBeAdded);
 void array_addMultipleData(Array* object, unsigned int numOfArg, ... );
 void* array_get(Array* object, int index);
 void array_remove(Array* object, int index);
+// functional progaming 
+// same parameter as javascript reduce, map, and filter
+void* array_reducer(Array* this, void*(*function)(), void* initialValue);
+Array* array_mapper(Array* this, void*(*function)());
+Array* array_filter(Array* this, void*(function)());
 // free
 void array_free(void* ArrayObjectToBeFreed);
 
