@@ -242,7 +242,7 @@ and you can access the object method by: `[objectTypeInLowerCase]_[functionName]
 ```javascript
 // Declaring a new object. The parameter takes a function of what to free.
 // You can pass in NULL if you don't wont the array data to be freed.
-Array* cars = new_Array(string_free);
+Array* listOfString = new_Array(string_free);
 
 // To add object to an array
 array_add(listOfString, $("first string") );
