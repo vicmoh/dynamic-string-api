@@ -252,23 +252,22 @@ array_addMultiple(listOfString,
     $("second string"),
     $("third string"),
     $("fourth string"),
-    $("fith string")
+    $("fifth string")
 );
 
 // You can also use 'for in' loop.
 // But the object struct must have length variable
 // such as map, linked list, and array from the library.
 for_in(x, listOfString){
-    String current = array_get(listOfString, x);
-    print(current);
-}//end if
+    print("index[",_(x),"]: ", array_get(listOfString, x));   
+}//end for
 
 /************ output ************
-first string
-second string
-third string
-fourth string
-fith string
+index[0]: first string
+index[1]: second string
+index[2]: third string
+index[3]: fourth string
+index[4]: fifth string
 *********************************/
 
 array_free(listOfString);
@@ -284,7 +283,7 @@ String ferrariKey = $("Ferrari");
 String hondaKey = $("Honda");
 
 // Adding to the map
-map_add(cars, ferrariKey, $("Price of a ", ferrariKey,": $300,000"));
+map_add(cars, ferrariKey, $("Price of a ", ferrariKey, ": $300,000"));
 map_add(cars, hondaKey, $("Price of a ", hondaKey, ": $20,000"));
 
 // Get the data by passing the key and print to console
