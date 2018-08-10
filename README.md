@@ -110,7 +110,7 @@ Another example:
 ```javascript
 int num1 = 2;
 int num2 = 2;
-String addition = $(_(num1), " plus by ", _(num2), " is ", _(num1+num2));
+String addition = $(_(num1), " plus ", _(num2), " is ", _(num1+num2));
 print("print4: ", addition, " minus 1 that's 3 quick math.");
 
 /************ output ************
