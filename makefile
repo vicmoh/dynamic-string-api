@@ -66,7 +66,7 @@ libraryCreate:
 #ranlib DynamicStringAPI.a
 # other command
 
-valgrind: program runValgrind
+valgrind: createProgram runValgrind
 
 runValgrind:
 	valgrind --leak-check=full ./bin/runProgram
