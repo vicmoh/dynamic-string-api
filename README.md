@@ -1,10 +1,13 @@
 # Dynamic String API for C
 
-A dynamic string API to make string coding much easier in C similar to other modern languages.
+A dynamic string API to make string coding much easier in C similar to other modern languages. 
+As of now, this library is available for Linux only.
 
 ## Installation of API
 
 ### 1. Download
+
+Download the zip file or clone.
 
 ```Bash
 git clone https://github.com/vicmoh/DynamicStringAPI
