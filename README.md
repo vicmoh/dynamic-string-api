@@ -1,13 +1,10 @@
 # Dynamic String API for C
 
-A dynamic string API to make string coding much easier in C similar to other modern languages. 
-As of now, this library is available for Linux only.
+A dynamic string API to make string coding much easier in C similar to other modern languages.
 
 ## Installation of API
 
 ### 1. Download
-
-Download the zip file or clone.
 
 ```Bash
 git clone https://github.com/vicmoh/DynamicStringAPI
@@ -367,10 +364,8 @@ print(point_toString(position));
 // Multiply the point value by 2
 point_multiplier(position, 2);
 print(
-    "the new x value is ", 
-    _(point_getX(position)),
-    "\nand the new y value is ", 
-    _(point_getY(position)) 
+    "the new x value is ", _(point_getX(position)),
+    "\nand the new y value is ", _(point_getY(position)) 
 );
 
 /************ output ************
