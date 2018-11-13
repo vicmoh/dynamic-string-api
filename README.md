@@ -1,6 +1,7 @@
 # Dynamic String API for C
 
 A dynamic string API to make string coding much easier in C similar to other modern languages.
+Please note, this library is currently only available for Linux.
 
 ## Installation of API
 
