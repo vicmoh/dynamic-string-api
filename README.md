@@ -331,7 +331,7 @@ CLASS(Point,
     // Function that return string for point
     String point_toString(Point* this){
         free(this->toString);
-        this->toString = $("cordinate: ", _(this->x), ", ", _(this->y));
+        this->toString = $("position: ", _(this->x), ", ", _(this->y));
         return this->toString;
     }//end func
 
