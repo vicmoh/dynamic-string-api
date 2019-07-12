@@ -8,7 +8,7 @@ Please note, this library is currently only available for Linux.
 ### 1. Download
 
 ```Bash
-git clone https://github.com/vicmoh/DynamicStringAPI
+git clone https://github.com/vicmoh/dynamic-string-api
 ```
 
 ### 2. Run
@@ -35,6 +35,7 @@ Any shared or static libraries goes under the `lib` folder.
 
 ```Bash
 lib/DynamicString.a
+lib/DynamicString.so
 ```
 
 Your header .h files must be inside the `include` folder.
@@ -331,7 +332,7 @@ CLASS(Point,
     // Function that return string for point
     String point_toString(Point* this){
         free(this->toString);
-        this->toString = $("cordinate: ", _(this->x), ", ", _(this->y));
+        this->toString = $("position: ", _(this->x), ", ", _(this->y));
         return this->toString;
     }//end func
 
@@ -365,8 +366,8 @@ print(point_toString(position));
 // Multiply the point value by 2
 point_multiplier(position, 2);
 print(
-    "the new x value is ", _(point_getX(position)),
-    "\nand the new y value is ", _(point_getY(position)) 
+    "the new x value is ", _(point_getX(position)), "\n",
+    "and the new y value is ", _(point_getY(position)) 
 );
 
 /************ output ************
@@ -381,7 +382,7 @@ point_free(position);
 Usage example 2:
 
 ```javascript
-// Add multipler points to the array
+// Add multiplier points to the array
 Array* points = new_Array(point_free);
 array_addMultiple(points, 
     new_Point(10, 10),
