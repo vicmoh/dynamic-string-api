@@ -17,7 +17,6 @@
 #include <stdbool.h>
 #include <string.h>
 #include <ctype.h>
-#include <malloc.h>
 #include <stdarg.h>
 #include <setjmp.h>
 
@@ -60,7 +59,7 @@ __VA_ARGS__, 20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1)\
 #define new( obj ) malloc(sizeof(obj))
 #define print(...) string_print(ARGS(__VA_ARGS__), __VA_ARGS__)
 #define loop(x, length) for(int x=0; x<length; x++)
-#define free( var ) free( var ); var = NULL
+#define free( var ) free_safe( (void*) &var )
 #define delete(...) free_multiple(ARGS(__VA_ARGS__), __VA_ARGS__)
 // credit for lambda https://blog.noctua-software.com/c-lambda.html
 #define LAMBDA(varfunction) ({ varfunction function;})
@@ -107,6 +106,7 @@ void string_freeStringArray(String* array, int arraySize);
 void string_advanceFree(void** stringToBeFreed);
 void string_free(void* stringToBeFreed);
 // other functions
+char* string_charAt(String this, int indexOfCharToGet);
 String* string_readFileByChar(String fileName, int* arraySize);
 // dummy function for constructor
 String dummy_print(void* toBePrinted);

@@ -17,7 +17,6 @@
 #include <stdbool.h>
 #include <string.h>
 #include <ctype.h>
-#include <malloc.h>
 #include <stdarg.h>
 #include <math.h>
 

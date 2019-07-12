@@ -204,14 +204,11 @@ You can also split string through the token object
 which split the token into an array of tokens similar to Java:
 
 ```javascript
-// Declare a string to be tokenized
-String toBeSplit = $("This string is going to be split into array of string");
-
 // You can use 'split()' or 'new_Token()' to create token object
+String toBeSplit = $("This string is going to be split into array of string");
 Token* token = new_Token(toBeSplit, " ");
-
 for(int x=0; x<token->length; x++){
-    print("token[",_(x),"]: ", token_getTokenAt(token, x));
+    print("token[",_(x),"]: ", token_getTokenAt(toBeSplit, x));
 }//end for
 
 /************ output ************
@@ -334,7 +331,7 @@ CLASS(Point,
     // Function that return string for point
     String point_toString(Point* this){
         free(this->toString);
-        this->toString = $("position: ", _(this->x), ", ", _(this->y));
+        this->toString = $("cordinate: ", _(this->x), ", ", _(this->y));
         return this->toString;
     }//end func
 

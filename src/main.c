@@ -83,7 +83,7 @@ int main(){
     map_add(cars, ferrariKey, $("Price of ", ferrariKey,": $300,000"));
     map_add(cars, hondaKey, $("Price of ", hondaKey, ": $20,000"));
     // Get the data by passing the key
-    print("\n---------- Map Ouput ----------");
+    print("\n---------- Map Output ----------");
     print(map_get(cars, "Ferrari"));
     print(map_get(cars, "Honda"));
 
@@ -93,7 +93,7 @@ int main(){
     // which split the token into an array of tokens similar to Java:
     String toBeSplit = $("This string is going to be split into array of string");
     Token* token = new_Token(toBeSplit, " ");
-    print("\n---------- Token Ouput ----------");
+    print("\n---------- Token Output ----------");
     for_in(x, token){
         print("token[",_(x),"]: ", token_getTokenAt(token, x));
     }//end for

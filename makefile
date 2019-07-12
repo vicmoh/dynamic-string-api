@@ -2,13 +2,30 @@ CC = gcc
 CFLAGS = -Wall -g -Iinclude -std=c11
 BIN = bin/
 SRC = lib/src/
+LIB = -shared
+FILE = DynamicStringAPI.so
+
+# to determine which os
+
+UNAME := $(shell uname)
+
+ifeq ($(UNAME), Linux)
+	CCFLAGS += -std=gnu11 
+	LIB = -shared
+	FILE = DynamicStringAPI.so
+endif
+ifeq ($(UNAME), Darwin)
+	CCFLAGS += -std=c11
+	LIB = -dynamiclib
+	FILE = DynamicStringAPI-Mac.so
+endif
 
 # to run you program
 
-program: createProgram runProgram
+program: createSharedLib createProgram runProgram
 
 createProgram:
-	$(CC) $(CFLAGS) src/*.c lib/*.a -o bin/runProgram -lm
+	$(CC) $(CFLAGS) src/*.c lib/$(FILE) -o bin/runProgram -lm
 
 runProgram:
 	./bin/runProgram
@@ -18,7 +35,7 @@ runProgram:
 lib: createSharedLib createStaticLibrary cleanObject
 
 createSharedLib: $(BIN)DynamicString.o $(BIN)ArrayMap.o $(BIN)Tokenizer.o $(BIN)LinkedList.o
-	$(CC) -shared -o lib/DynamicStringAPI.so $(BIN)DynamicString.o $(BIN)ArrayMap.o $(BIN)Tokenizer.o $(BIN)LinkedList.o
+	$(CC) $(LIB) -o lib/$(FILE) $(BIN)DynamicString.o $(BIN)ArrayMap.o $(BIN)Tokenizer.o $(BIN)LinkedList.o
 
 $(BIN)DynamicString.o: $(SRC)DynamicString.c
 	$(CC) $(CFLAGS) -fpic -Iinclude -c $(SRC)DynamicString.c -o $(BIN)DynamicString.o
@@ -36,13 +53,18 @@ $(BIN)LinkedList.o: $(SRC)LinkedList.c
 
 testing: createStaticLibrary createTest runTest
 
+testingValgrind: createStaticLibrary createTest runTestValgrind
+
 createTest:
 	$(CC) $(CFLAGS) test/test.c lib/*.a -o bin/runTest -lm
 
-runTest:
+runTestValgrind:
 	valgrind --leak-check=full ./bin/runTest
 
-# creating a createStaticLibrary
+runTest:
+	./bin/runTest
+
+# creating a static library
 
 createStaticLibrary: DynamicString.o Tokenizer.o ArrayMap.o LinkedList.o libraryCreate cleanObject
 
@@ -64,6 +86,7 @@ libraryCreate:
 	ar rc lib/DynamicStringAPI.a bin/DynamicString.o bin/Tokenizer.o bin/ArrayMap.o bin/LinkedList.o
 
 #ranlib DynamicStringAPI.a
+# --show-leak-kinds=all
 # other command
 
 valgrind: createProgram runValgrind
